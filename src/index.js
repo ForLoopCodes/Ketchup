@@ -1,12 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import Main from "./components/Main";
-
-ReactDOM.render(
-  <div>
-    <div className="main-container">
-      <Main />
-    </div>
-  </div>,
-  document.getElementById("root")
-);
+createRoot(document.getElementById("root")).render(<Main />);
