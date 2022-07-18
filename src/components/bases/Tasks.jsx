@@ -1,110 +1,203 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Tasks extends Component {
-  state = {
-    tasks: [
-      {
-        id: 1,
-        name: "Open the Fridge.",
-        done: false,
-        subTasks: [
-          { id: 1, name: "Touch the door.", done: false },
-          { id: 2, name: "Hold it.", done: false },
-        ],
-      },
-      {
-        id: 2,
-        name: "Pick some food.",
-        done: false,
-        subTasks: [
-          { id: 1, name: "Touch the door.", done: false },
-          { id: 2, name: "Hold it.", done: false },
-        ],
-      },
-      { id: 3, name: "Eat it.", done: false, subTasks: [] },
-    ],
-  };
-  deleteTask = (id) => {
-    this.setState({
-      tasks: this.state.tasks.filter((task) => task.id !== id),
-    });
-  };
-  addTask = (e) => {
-    this.setState({
-      tasks: [
-        ...this.state.tasks,
+export default function Tasks(props) {
+  const [tasks, setTasks] = React.useState(props.tasks);
+  const [categories, setCategories] = React.useState(["other", "work", "home"]);
+  const addTask = (e) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      setTasks([
+        ...tasks,
         {
-          id: this.state.tasks.length + 1,
+          id: tasks.length + 1,
+          category: "",
           name: e.target.value,
           done: false,
           subTasks: [],
         },
-      ],
-    });
+      ]);
+    }
   };
-  addSubTask = (e) => {
-    this.setState({
-      tasks: this.state.tasks.map((task) => {
-        e.target.alt === task.id.toString() &&
-          (task.subTasks = [
-            ...task.subTasks,
-            { id: task.subTasks.length + 1, name: e.target.value, done: false },
-          ]);
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+  const renameTask = (e, taskid) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      setTasks(
+        tasks.map((task) => {
+          taskid === task.id && (task.name = e.target.value);
+          return task;
+        })
+      );
+    }
+  };
+  const doneTask = (id) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          task.done = !task.done;
+        }
         return task;
-      }),
-    });
+      })
+    );
   };
-  deleteSubTask = (id, e) => {
-    this.setState({
-      tasks: this.state.tasks.map((task) => {
+  const addSubTask = (e, taskid) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      setTasks(
+        tasks.map((task) => {
+          taskid === task.id &&
+            (task.subTasks = [
+              ...task.subTasks,
+              {
+                id: task.subTasks.length + 1,
+                name: e.target.value,
+                done: false,
+              },
+            ]);
+          return task;
+        })
+      );
+    }
+  };
+  const deleteSubTask = (id, e) => {
+    setTasks(
+      tasks.map((task) => {
         e === task.id &&
           (task.subTasks = task.subTasks.filter(
             (subTask) => subTask.id !== id
           ));
         return task;
-      }),
-    });
+      })
+    );
   };
-  checkSubEntry = (e) => {
-    if (e.keyCode === 13) {
-      e.target.value !== "" && this.addSubTask(e);
+  const renameSubTask = (e, subtaskid, taskid) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === taskid) {
+            task.subTasks.map((subtask) => {
+              if (subtask.id === subtaskid) {
+                subtask.name = e.target.value;
+              }
+            });
+          }
+          return task;
+        })
+      );
     }
   };
-  checkEntry = (e) => {
-    if (e.keyCode === 13) {
-      e.target.value !== "" && this.addTask(e);
+  const doneSubTask = (subtaskid, taskid) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskid) {
+          task.subTasks.map((subtask) => {
+            if (subtask.id === subtaskid) {
+              subtask.done = !subtask.done;
+            }
+          });
+        }
+        return task;
+      })
+    );
+  };
+  const returnTaskOfCaterory = (category) => {
+    return tasks.filter((task) => task.category === category);
+  };
+  const addTaskOfCategory = (e, category) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      setTasks([
+        ...tasks,
+        {
+          id: tasks.length + 1,
+          category: category,
+          name: e.target.value,
+          done: false,
+          subTasks: [],
+        },
+      ]);
+      console.log(categories.indexOf(category));
     }
   };
-  render() {
-    return (
+  const addCategory = (e) => {
+    if (e.keyCode === 13 && e.target.value !== "") {
+      if (categories.indexOf(e.target.value) === -1) {
+        setCategories([...categories, e.target.value]);
+      } else {
+        alert("Category already exists.");
+      }
+    }
+  };
+  const deleteCategory = (category) => {
+    setCategories(categories.filter((c) => c !== category));
+    setTasks(
+      tasks.map((task) => {
+        if (task.category === category) {
+          task.category = "other";
+        }
+        return task;
+      })
+    );
+  };
+  const moveTask = (taskid, category) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskid) {
+          task.category = category;
+        }
+        return task;
+      })
+    );
+  };
+  return (
+    <div>
+      <h1>Tasks.</h1>
       <div>
-        <h1>Tasks.</h1>
-        <input
-          type="text"
-          placeholder={"Type and press enter to add task."}
-          onKeyDown={this.checkEntry}
-        />
+        <h2>All Tasks:</h2>
+        <input type="text" placeholder={"Add task..."} onKeyDown={addTask} />
         <br />
+        <p>{tasks.length === 0 && "You don't have any tasks yet!"}</p>
         <ul type="disc">
-          {this.state.tasks.map((task) => (
-            <li key={task.id}>
-              <button onClick={() => this.deleteTask(task.id)}>Done</button>
+          {tasks.map((task) => (
+            <li key={task.id} style={{ opacity: task.done && 0.5 }}>
+              <button onClick={() => doneTask(task.id)}>
+                {task.done ? "✅" : "⏹️"}
+              </button>
+              <button onClick={() => deleteTask(task.id)}>🗑️</button>
+              <input
+                type="text"
+                onKeyDown={(e) => renameTask(e, task.id)}
+                placeholder={"Rename..."}
+              />
+              <select
+                onChange={(e) => moveTask(task.id, e.target.value)}
+                value={task.category}
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
               {task.name}
               <br />
               <input
                 type="text"
-                alt={task.id}
-                onKeyDown={this.checkSubEntry}
-                placeholder={"Type and press enter to add sub task."}
+                onKeyDown={(e) => addSubTask(e, task.id)}
+                placeholder={"Add sub task..."}
               />
               <ul type="circle">
                 {task.subTasks.map((subTask) => (
-                  <li key={subTask.id}>
-                    <button
-                      onClick={() => this.deleteSubTask(subTask.id, task.id)}
-                    >
-                      Done
+                  <li key={subTask.id} style={{ opacity: subTask.done && 0.5 }}>
+                    <button onClick={() => doneSubTask(subTask.id, task.id)}>
+                      {subTask.done ? "✅" : "⏹️"}
                     </button>
+                    <button onClick={() => deleteSubTask(subTask.id, task.id)}>
+                      🗑️
+                    </button>
+                    <input
+                      type="text"
+                      onKeyDown={(e) => renameSubTask(e, subTask.id, task.id)}
+                      placeholder={"Rename..."}
+                    />
                     {subTask.name}
                   </li>
                 ))}
@@ -113,8 +206,98 @@ class Tasks extends Component {
           ))}
         </ul>
       </div>
-    );
-  }
+      <div>
+        <h2>Tasks of category:</h2>
+        {categories.map((category) => (
+          <div key={category}>
+            <h3>
+              # {categories.indexOf(category) + 1} | {category}
+            </h3>
+            {category !== categories.slice(0, 1)[0] && (
+              <div>
+                <button onClick={() => deleteCategory(category)}>🗑️</button>
+                <input
+                  type="text"
+                  placeholder={"Add task in category..."}
+                  onKeyDown={(e) => addTaskOfCategory(e, category)}
+                />
+              </div>
+            )}
+            <p>
+              {returnTaskOfCaterory(category).length === 0 &&
+                "You don't have any tasks in this category yet!"}
+            </p>
+            <ul type="disc">
+              {returnTaskOfCaterory(category).map((task) => (
+                <li key={task.id} style={{ opacity: task.done && 0.5 }}>
+                  <button onClick={() => doneTask(task.id)}>
+                    {task.done ? "✅" : "⏹️"}
+                  </button>
+                  <button onClick={() => deleteTask(task.id)}>🗑️</button>
+                  <input
+                    type="text"
+                    onKeyDown={(e) => renameTask(e, task.id)}
+                    placeholder={"Rename..."}
+                  />
+                  <select
+                    onChange={(e) => moveTask(task.id, e.target.value)}
+                    value={task.category}
+                  >
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  {task.name}
+                  <br />
+                  <input
+                    type="text"
+                    onKeyDown={(e) => addSubTask(e, task.id)}
+                    placeholder={"Add sub task..."}
+                  />
+                  <ul type="circle">
+                    {task.subTasks.map((subTask) => (
+                      <li
+                        key={subTask.id}
+                        style={{ opacity: subTask.done && 0.5 }}
+                      >
+                        <button
+                          onClick={() => doneSubTask(subTask.id, task.id)}
+                        >
+                          {subTask.done ? "✅" : "⏹️"}
+                        </button>
+                        <button
+                          onClick={() => deleteSubTask(subTask.id, task.id)}
+                        >
+                          🗑️
+                        </button>
+                        <input
+                          type="text"
+                          onKeyDown={(e) =>
+                            renameSubTask(e, subTask.id, task.id)
+                          }
+                          placeholder={"Rename..."}
+                        />
+                        {subTask.name}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <h2>
+        Add more categories:
+        <br />
+        <input
+          type="text"
+          placeholder={"Type category name here..."}
+          onKeyDown={addCategory}
+        />
+      </h2>
+    </div>
+  );
 }
-
-export default Tasks;
