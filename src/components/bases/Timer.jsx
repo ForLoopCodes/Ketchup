@@ -9,8 +9,13 @@ export default function Timer(props) {
   const [saveM, setSaveM] = React.useState(props.m);
   const [saveS, setSaveS] = React.useState(props.s);
   const [history, setHistory] = React.useState([]);
+  const [startTime, setStartTime] = React.useState(null);
+  const [isFocus, setIsFocus] = React.useState(true);
+  const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
+  const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
   const startTimer = () => {
     setStarted(true);
+    setStartTime(new Date());
     setHistory([
       "timer started: " +
         saveH.toString().padStart(2, "0") +
@@ -23,14 +28,37 @@ export default function Timer(props) {
   };
   const stopTimer = () => {
     setStarted(false);
-    setHistory(["timer stopped.", ...history]);
+    isFocus
+      ? setTotalTimeFocused(
+          totalTimeFocused +
+            (new Date().getTime() - startTime.getTime()) / 60000
+        )
+      : setTotalTimeBreak(
+          totalTimeBreak + (new Date().getTime() - startTime.getTime()) / 60000
+        );
+    setHistory([
+      "timer stopped after " +
+        ((new Date() - startTime) / 60000).toFixed(0) +
+        (((new Date() - startTime) / 60000).toFixed(0) === 1
+          ? " minute."
+          : " minutes."),
+      ...history,
+    ]);
   };
   const resetTimer = () => {
+    setHistory([
+      "timer reset to: " +
+        saveH.toString().padStart(2, "0") +
+        ":" +
+        saveM.toString().padStart(2, "0") +
+        ":" +
+        saveS.toString().padStart(2, "0"),
+      ...history,
+    ]);
     setH(saveH);
     setM(saveM);
     setS(saveS);
     setStarted(false);
-    setHistory(["timer reset.", ...history]);
   };
   React.useEffect(() => {
     if (started) {
@@ -66,7 +94,7 @@ export default function Timer(props) {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [started, h, m, s]);
+  }, [started, h, m, s, saveH, saveM, saveS, history]);
   if (h < 0) {
     setH(0);
     setM(0);
@@ -99,8 +127,19 @@ export default function Timer(props) {
   return (
     <div>
       <h1>Timer</h1>
-      {h.toString().padStart(2, "0")}:{m.toString().padStart(2, "0")}:
-      {s.toString().padStart(2, "0")}
+      <h2>
+        {h.toString().padStart(2, "0")}:{m.toString().padStart(2, "0")}:
+        {s.toString().padStart(2, "0")}
+      </h2>
+      <h3>
+        # Total focussed: {totalTimeFocused.toFixed(0)}
+        {totalTimeFocused.toFixed(0) === 1 ? " minute." : " minutes."}
+        <br /># Total break: {totalTimeBreak.toFixed(0)}
+        {totalTimeBreak.toFixed(0) === 1 ? " minute." : " minutes."}
+        <button onClick={() => setIsFocus(!isFocus)}>
+          {isFocus ? "swith to break mode" : "swith to focus mode"}
+        </button>
+      </h3>
       <br />
       <button onClick={startTimer}>Start</button>
       <button onClick={stopTimer}>Stop</button>

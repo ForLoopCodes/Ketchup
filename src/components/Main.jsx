@@ -3,11 +3,22 @@ import Timer from "./bases/Timer";
 import Tasks from "./bases/Tasks";
 import LeaveScreen from "./bases/LeaveScreen";
 import Tally from "./bases/Tally";
+import Expenses from "./bases/Expenses";
 
 function Main() {
   return (
     <div className="main">
+      <Expenses />
       <Timer h={0} m={30} s={0} />
+      <hr />
+      <Tally
+        tallies={[
+          { id: 1, category: "home", val: 1, name: "Tally 1" },
+          { id: 2, category: "other", val: 5, name: "Tally 2" },
+          { id: 3, category: "work", val: 10, name: "Tally 3" },
+        ]}
+      />
+      <hr />
       <Tasks
         tasks={[
           {
@@ -39,7 +50,7 @@ function Main() {
           },
         ]}
       />
-      <Tally />
+      <hr />
       <LeaveScreen />
     </div>
   );

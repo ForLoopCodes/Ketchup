@@ -78,6 +78,7 @@ export default function Tasks(props) {
               if (subtask.id === subtaskid) {
                 subtask.name = e.target.value;
               }
+              return subtask;
             });
           }
           return task;
@@ -93,6 +94,7 @@ export default function Tasks(props) {
             if (subtask.id === subtaskid) {
               subtask.done = !subtask.done;
             }
+            return subtask;
           });
         }
         return task;
@@ -114,7 +116,6 @@ export default function Tasks(props) {
           subTasks: [],
         },
       ]);
-      console.log(categories.indexOf(category));
     }
   };
   const addCategory = (e) => {
@@ -151,7 +152,7 @@ export default function Tasks(props) {
     <div>
       <h1>Tasks.</h1>
       <div>
-        <h2>All Tasks:</h2>
+        <h2>All Tasks | ({tasks.length} Tasks.)</h2>
         <input type="text" placeholder={"Add task..."} onKeyDown={addTask} />
         <br />
         <p>{tasks.length === 0 && "You don't have any tasks yet!"}</p>
@@ -211,7 +212,8 @@ export default function Tasks(props) {
         {categories.map((category) => (
           <div key={category}>
             <h3>
-              # {categories.indexOf(category) + 1} | {category}
+              # {categories.indexOf(category) + 1} | {category} | (
+              {returnTaskOfCaterory(category).length} Tasks.)
             </h3>
             {category !== categories.slice(0, 1)[0] && (
               <div>
@@ -289,7 +291,7 @@ export default function Tasks(props) {
           </div>
         ))}
       </div>
-      <h2>
+      <h3>
         Add more categories:
         <br />
         <input
@@ -297,7 +299,7 @@ export default function Tasks(props) {
           placeholder={"Type category name here..."}
           onKeyDown={addCategory}
         />
-      </h2>
+      </h3>
     </div>
   );
 }
