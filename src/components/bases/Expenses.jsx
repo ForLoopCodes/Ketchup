@@ -17,6 +17,20 @@ export default function Expenses(props) {
       category: "daily",
       date: "01-02-2020",
     },
+    {
+      id: 3,
+      name: "Lambo",
+      amount: 10,
+      category: "daily",
+      date: "01-01-2020",
+    },
+    {
+      id: 4,
+      name: "Bread",
+      amount: 10000,
+      category: "daily",
+      date: "01-02-2020",
+    },
   ]);
   const [dates, setDates] = React.useState(["01-01-2020", "01-02-2020"]);
   const addExpense = (e) => {
@@ -34,7 +48,7 @@ export default function Expenses(props) {
       setExpenses([
         ...expenses,
         {
-          id: expenses.length + 1,
+          id: expenses.length + 2,
           name: e.target.value.slice(e.target.value.indexOf(" ") + 1),
           amount: parseFloat(
             parseFloat(
@@ -151,51 +165,58 @@ export default function Expenses(props) {
           placeholder={symbol + "2000 elon musk"}
         />
       </div>
-      {dates.map((date) => (
-        <div key={date}>
-          <h3>{date}</h3>
-          <div>
-            <table>
-              {returnExpensesOfDate(date).map((expense) => (
-                <tbody key={expense.id}>
-                  <tr key={date.indexOf(expense.date)}>
-                    <td>{symbol}</td>
-                    <td>{expense.amount}</td>
-                    <td>{expense.name}</td>
-                    <td>
-                      <button onClick={() => deleteExpense(expense.id)}>
-                        Delete
-                      </button>
-                      <input
-                        onFocus={(e) =>
-                          e.target.value === ""
-                            ? (e.target.value = symbol + expense.amount + " ")
-                            : null
-                        }
-                        onBlur={(e) => (e.target.value = "")}
-                        type={"text"}
-                        onKeyDown={(e) => renameExpense(e, expense.id)}
-                        placeholder={
-                          symbol + expense.amount + " " + expense.name
-                        }
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              ))}
-              <tfoot>
-                <tr>
-                  <td style={{ borderTop: "1px solid black" }}>{symbol}</td>
-                  <td style={{ borderTop: "1px solid black" }}>
-                    {returnTotalOfDate(date)}
-                  </td>
-                  <td style={{ borderTop: "1px solid black" }}>Total</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+      {expenses.length === 0 && (
+        <div>
+          <h2>No Expenses</h2>
         </div>
-      ))}
+      )}
+      {dates.map((date) =>
+        returnExpensesOfDate(date).length > 0 ? (
+          <div key={date}>
+            <h3>{date}</h3>
+            <div>
+              <table>
+                {returnExpensesOfDate(date).map((expense) => (
+                  <tbody key={expense.id}>
+                    <tr key={date.indexOf(expense.date)}>
+                      <td>{symbol}</td>
+                      <td>{expense.amount}</td>
+                      <td>{expense.name}</td>
+                      <td>
+                        <button onClick={() => deleteExpense(expense.id)}>
+                          Delete
+                        </button>
+                        <input
+                          onFocus={(e) =>
+                            e.target.value === ""
+                              ? (e.target.value = symbol + expense.amount + " ")
+                              : null
+                          }
+                          onBlur={(e) => (e.target.value = "")}
+                          type={"text"}
+                          onKeyDown={(e) => renameExpense(e, expense.id)}
+                          placeholder={
+                            symbol + expense.amount + " " + expense.name
+                          }
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
+                <tfoot>
+                  <tr>
+                    <td style={{ borderTop: "1px solid black" }}>{symbol}</td>
+                    <td style={{ borderTop: "1px solid black" }}>
+                      {returnTotalOfDate(date)}
+                    </td>
+                    <td style={{ borderTop: "1px solid black" }}>Total</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        ) : null
+      )}
     </div>
   );
 }
