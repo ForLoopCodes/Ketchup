@@ -8,7 +8,38 @@ import Expenses from "./bases/Expenses";
 function Main() {
   return (
     <div className="main">
-      <Expenses />
+      <Expenses
+        expenses={[
+          {
+            id: 1,
+            name: "Rent",
+            amount: 1000,
+            category: "monthly",
+            date: "01-01-2020",
+          },
+          {
+            id: 2,
+            name: "Milk",
+            amount: 100,
+            category: "daily",
+            date: "01-02-2020",
+          },
+          {
+            id: 3,
+            name: "Lambo",
+            amount: 10,
+            category: "daily",
+            date: "01-01-2020",
+          },
+          {
+            id: 4,
+            name: "Bread",
+            amount: 10000,
+            category: "daily",
+            date: "01-02-2020",
+          },
+        ]}
+      />
       <Timer h={0} m={30} s={0} />
       <hr />
       <Tally

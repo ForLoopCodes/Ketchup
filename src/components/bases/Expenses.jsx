@@ -2,36 +2,7 @@ import React from "react";
 
 export default function Expenses(props) {
   const [symbol, setSymbol] = React.useState("$");
-  const [expenses, setExpenses] = React.useState([
-    {
-      id: 1,
-      name: "Rent",
-      amount: 1000,
-      category: "monthly",
-      date: "01-01-2020",
-    },
-    {
-      id: 2,
-      name: "Milk",
-      amount: 100,
-      category: "daily",
-      date: "01-02-2020",
-    },
-    {
-      id: 3,
-      name: "Lambo",
-      amount: 10,
-      category: "daily",
-      date: "01-01-2020",
-    },
-    {
-      id: 4,
-      name: "Bread",
-      amount: 10000,
-      category: "daily",
-      date: "01-02-2020",
-    },
-  ]);
+  const [expenses, setExpenses] = React.useState(props.expenses);
   const [dates, setDates] = React.useState(["01-01-2020", "01-02-2020"]);
   const addExpense = (e) => {
     if (
