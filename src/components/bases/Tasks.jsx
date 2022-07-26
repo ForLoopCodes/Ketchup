@@ -4,7 +4,7 @@ export default function Tasks(props) {
   const [tasks, setTasks] = React.useState(props.tasks);
   const [categories, setCategories] = React.useState(["other", "work", "home"]);
   const addTask = (e) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTasks([
         ...tasks,
         {
@@ -21,7 +21,7 @@ export default function Tasks(props) {
     setTasks(tasks.filter((task) => task.id !== id));
   };
   const renameTask = (e, taskid) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTasks(
         tasks.map((task) => {
           taskid === task.id && (task.name = e.target.value);
@@ -41,7 +41,7 @@ export default function Tasks(props) {
     );
   };
   const addSubTask = (e, taskid) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTasks(
         tasks.map((task) => {
           taskid === task.id &&
@@ -70,7 +70,7 @@ export default function Tasks(props) {
     );
   };
   const renameSubTask = (e, subtaskid, taskid) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTasks(
         tasks.map((task) => {
           if (task.id === taskid) {
@@ -105,7 +105,7 @@ export default function Tasks(props) {
     return tasks.filter((task) => task.category === category);
   };
   const addTaskOfCategory = (e, category) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTasks([
         ...tasks,
         {
@@ -119,7 +119,7 @@ export default function Tasks(props) {
     }
   };
   const addCategory = (e) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       if (categories.indexOf(e.target.value) === -1) {
         setCategories([...categories, e.target.value]);
       } else {

@@ -27,7 +27,7 @@ export default function Tally(props) {
     );
   };
   const newTally = (e) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTallies([
         ...tallies,
         {
@@ -39,7 +39,7 @@ export default function Tally(props) {
     }
   };
   const addCategory = (e) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setCategories([...categories, e.target.value]);
     }
   };
@@ -58,7 +58,7 @@ export default function Tally(props) {
     return tallies.filter((tally) => tally.category === category);
   };
   const addTallyOfCategory = (e, category) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTallies([
         ...tallies,
         {
@@ -81,7 +81,7 @@ export default function Tally(props) {
     );
   };
   const renameTally = (e, id) => {
-    if (e.keyCode === 13 && e.target.value !== "") {
+    if (e.key === "Enter" && e.target.value !== "") {
       setTallies(
         tallies.map((tally) => {
           if (tally.id === id) {
