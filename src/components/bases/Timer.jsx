@@ -26,6 +26,19 @@ export default function Timer(props) {
       ...history,
     ]);
   };
+  const continueTimer = () => {
+    setStartTime(new Date());
+    setStarted(true);
+    setHistory([
+      "timer continued: " +
+        h.toString().padStart(2, "0") +
+        ":" +
+        m.toString().padStart(2, "0") +
+        ":" +
+        s.toString().padStart(2, "0"),
+      ...history,
+    ]);
+  };
   const stopTimer = () => {
     setStarted(false);
     isFocus
@@ -136,13 +149,15 @@ export default function Timer(props) {
         {totalTimeFocused.toFixed(0) === 1 ? " minute." : " minutes."}
         <br /># Total break: {totalTimeBreak.toFixed(0)}
         {totalTimeBreak.toFixed(0) === 1 ? " minute." : " minutes."}
+        <br />
         <button onClick={() => setIsFocus(!isFocus)}>
           {isFocus ? "swith to break mode" : "swith to focus mode"}
         </button>
       </h3>
       <br />
       <button onClick={startTimer}>Start</button>
-      <button onClick={stopTimer}>Stop</button>
+      <button onClick={continueTimer}>Continue</button>
+      <button onClick={stopTimer}>Pause</button>
       <button onClick={resetTimer}>Reset</button>
       <br />
       <button onClick={() => setTime(0, 30, 0)}>30 min</button>
