@@ -170,6 +170,7 @@ export default function Expenses(props) {
           <h2>No Expenses</h2>
         </div>
       )}
+      <h2>Expenses by date:</h2>
       {dates.map((date) =>
         returnExpensesOfDate(date).length > 0 ? (
           <div key={date}>
@@ -184,7 +185,7 @@ export default function Expenses(props) {
                       <td>{expense.name}</td>
                       <td>
                         <button onClick={() => deleteExpense(expense.id)}>
-                          Delete
+                          🗑️
                         </button>
                         <input
                           onFocus={(e) =>
