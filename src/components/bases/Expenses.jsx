@@ -156,7 +156,7 @@ export default function Expenses(props) {
                       <td>{expense.name}</td>
                       <td>
                         <button onClick={() => deleteExpense(expense.id)}>
-                          🗑️
+                          Delete
                         </button>
                         <input
                           onFocus={(e) =>

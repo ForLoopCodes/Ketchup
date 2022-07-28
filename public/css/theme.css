@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+* {
+  font-family: Poppins;
+  transition: 0.3s ease;
+}
+html,
+body,
+.viewport {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: #eff3f7;
+  display: flex;
+  justify-content: center;
+}
+button {
+  background: #dce2e8;
+  border-radius: 5px;
+  color: #848b96;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+}
+button:hover {
+  background: #3b80f3;
+  color: #fff;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+input {
+  background: #dce2e8;
+  border: 1px solid #dce2e8;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px;
+}
+input:focus {
+  background: #fff;
+  outline: none;
+  border: 1px solid #3b80f3;
+}
+input:hover {
+  background: #fff;
+  border: 1px solid #3b80f3;
+}
+select {
+  background: #dce2e8;
+  border: 1px solid #dce2e8;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px;
+}
+select:focus {
+  background: #fff;
+  outline: none;
+  border: 1px solid #3b80f3;
+}
+select:hover {
+  background: #fff;
+  border: 1px solid #3b80f3;
+}

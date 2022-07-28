@@ -9,7 +9,7 @@ export default function Tasks(props) {
         ...tasks,
         {
           id: tasks.length + 1,
-          category: "",
+          category: categories[0],
           name: e.target.value,
           done: false,
           subTasks: [],
@@ -160,9 +160,9 @@ export default function Tasks(props) {
           {tasks.map((task) => (
             <li key={task.id} style={{ opacity: task.done && 0.5 }}>
               <button onClick={() => doneTask(task.id)}>
-                {task.done ? "✅" : "⏹️"}
+                {task.done ? "Done!" : "To be done"}
               </button>
-              <button onClick={() => deleteTask(task.id)}>🗑️</button>
+              <button onClick={() => deleteTask(task.id)}>Delete</button>
               <input
                 type="text"
                 onKeyDown={(e) => renameTask(e, task.id)}
@@ -189,10 +189,10 @@ export default function Tasks(props) {
                 {task.subTasks.map((subTask) => (
                   <li key={subTask.id} style={{ opacity: subTask.done && 0.5 }}>
                     <button onClick={() => doneSubTask(subTask.id, task.id)}>
-                      {subTask.done ? "✅" : "⏹️"}
+                      {subTask.done ? "Done" : "To be done"}
                     </button>
                     <button onClick={() => deleteSubTask(subTask.id, task.id)}>
-                      🗑️
+                      Delete
                     </button>
                     <input
                       type="text"
@@ -217,7 +217,7 @@ export default function Tasks(props) {
             </h3>
             {category !== categories.slice(0, 1)[0] && (
               <div>
-                <button onClick={() => deleteCategory(category)}>🗑️</button>
+                <button onClick={() => deleteCategory(category)}>Delete</button>
                 <input
                   type="text"
                   placeholder={"Add task in category..."}
@@ -233,9 +233,9 @@ export default function Tasks(props) {
               {returnTaskOfCaterory(category).map((task) => (
                 <li key={task.id} style={{ opacity: task.done && 0.5 }}>
                   <button onClick={() => doneTask(task.id)}>
-                    {task.done ? "✅" : "⏹️"}
+                    {task.done ? "Done!" : "To be done"}
                   </button>
-                  <button onClick={() => deleteTask(task.id)}>🗑️</button>
+                  <button onClick={() => deleteTask(task.id)}>Delete</button>
                   <input
                     type="text"
                     onKeyDown={(e) => renameTask(e, task.id)}
@@ -267,12 +267,12 @@ export default function Tasks(props) {
                         <button
                           onClick={() => doneSubTask(subTask.id, task.id)}
                         >
-                          {subTask.done ? "✅" : "⏹️"}
+                          {subTask.done ? "Done!" : "To be done"}
                         </button>
                         <button
                           onClick={() => deleteSubTask(subTask.id, task.id)}
                         >
-                          🗑️
+                          Delete
                         </button>
                         <input
                           type="text"

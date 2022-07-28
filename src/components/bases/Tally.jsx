@@ -32,6 +32,7 @@ export default function Tally(props) {
         ...tallies,
         {
           id: tallies.length + 1,
+          category: categories[0],
           val: 0,
           name: e.target.value,
         },
@@ -101,10 +102,10 @@ export default function Tally(props) {
         <ul>
           {tallies.map((tally) => (
             <li key={tally.id}>
-              <button onClick={() => minusCount(tally.id)}>➖</button>
+              <button onClick={() => minusCount(tally.id)}>-</button>
               {tally.val}
-              <button onClick={() => addCount(tally.id)}>➕</button>
-              <button onClick={() => deleteTally(tally.id)}>🗑️</button>
+              <button onClick={() => addCount(tally.id)}>+</button>
+              <button onClick={() => deleteTally(tally.id)}>Delete</button>
               {tally.name}
               <input
                 type="text"
@@ -135,7 +136,7 @@ export default function Tally(props) {
             </h3>
             {category !== categories.slice(0, 1)[0] && (
               <div>
-                <button onClick={() => deleteCategory(category)}>🗑️</button>
+                <button onClick={() => deleteCategory(category)}>Delete</button>
                 <input
                   type="text"
                   onKeyDown={(e) => addTallyOfCategory(e, category)}
@@ -150,10 +151,10 @@ export default function Tally(props) {
             <ul>
               {returnTallyOfCategory(category).map((tally) => (
                 <li key={tally.id}>
-                  <button onClick={() => minusCount(tally.id)}>➖</button>
+                  <button onClick={() => minusCount(tally.id)}>-</button>
                   {tally.val}
-                  <button onClick={() => addCount(tally.id)}>➕</button>
-                  <button onClick={() => deleteTally(tally.id)}>🗑️</button>
+                  <button onClick={() => addCount(tally.id)}>+</button>
+                  <button onClick={() => deleteTally(tally.id)}>Delete</button>
                   {tally.name}
                   <input
                     type="text"
