@@ -139,7 +139,7 @@ export default function Timer(props) {
   };
   return (
     <div>
-      <h1>Timer</h1>
+      <h1>Timer.</h1>
       <h2>
         {h.toString().padStart(2, "0")}:{m.toString().padStart(2, "0")}:
         {s.toString().padStart(2, "0")}

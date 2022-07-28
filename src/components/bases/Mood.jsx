@@ -98,7 +98,7 @@ export default function Mood(props) {
   };
   return (
     <div>
-      <h1>Mood</h1>
+      <h1>Mood.</h1>
       <div>
         <h2>How is your mood today?</h2>
         {moods.length === 0 && <p>No moods yet.</p>}

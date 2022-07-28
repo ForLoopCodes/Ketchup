@@ -113,7 +113,7 @@ export default function Expenses(props) {
   };
   return (
     <div>
-      <h1>Expenses</h1>
+      <h1>Expenses.</h1>
       <div>
         <input
           type="text"
