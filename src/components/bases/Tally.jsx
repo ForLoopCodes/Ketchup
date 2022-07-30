@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-export default function Tally(props) {
-  const [tallies, setTallies] = React.useState(props.tallies);
+export default function Tally() {
+  const [tallies, setTallies] = React.useState([]);
   const [categories, setCategories] = React.useState(["other", "work", "home"]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/tallies")
+      .then((response) => {
+        setTallies(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
   const minusCount = (id) => {
     setTallies(
       tallies.map((tally) => {

@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+const axios = require("axios");
 
-export default function Tasks(props) {
-  const [tasks, setTasks] = React.useState(props.tasks);
+export default function Tasks() {
+  const [tasks, setTasks] = React.useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/tasks")
+      .then((response) => {
+        setTasks(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
   const [categories, setCategories] = React.useState(["other", "work", "home"]);
   const addTask = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {

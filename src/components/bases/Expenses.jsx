@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+const axios = require("axios");
 
-export default function Expenses(props) {
+export default function Expenses() {
   const [symbol, setSymbol] = React.useState("$");
-  const [expenses, setExpenses] = React.useState(props.expenses);
+  const [expenses, setExpenses] = React.useState([]);
   const [dates, setDates] = React.useState(["01-01-2020", "01-02-2020"]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/expenses")
+      .then((response) => {
+        setExpenses(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
   const addExpense = (e) => {
     if (
       e.key === "Enter" &&

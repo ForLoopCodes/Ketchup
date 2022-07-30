@@ -92,6 +92,15 @@ export default function Timer(props) {
                   saveS.toString().padStart(2, "0"),
                 ...history,
               ]);
+              isFocus
+                ? setTotalTimeFocused(
+                    totalTimeFocused +
+                      (new Date().getTime() - startTime.getTime()) / 60000
+                  )
+                : setTotalTimeBreak(
+                    totalTimeBreak +
+                      (new Date().getTime() - startTime.getTime()) / 60000
+                  );
             } else {
               setH(h - 1);
               setM(59);
@@ -107,7 +116,20 @@ export default function Timer(props) {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [started, h, m, s, saveH, saveM, saveS, history]);
+  }, [
+    started,
+    h,
+    m,
+    s,
+    saveH,
+    saveM,
+    saveS,
+    isFocus,
+    startTime,
+    history,
+    totalTimeBreak,
+    totalTimeFocused,
+  ]);
   if (h < 0) {
     setH(0);
     setM(0);

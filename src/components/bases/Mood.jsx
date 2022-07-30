@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-export default function Mood(props) {
-  const [moods, setMoods] = React.useState(props.moods);
+export default function Mood() {
+  const [moods, setMoods] = React.useState([]);
   const [dates, setDates] = React.useState(["01-01-2020", "02-01-2020"]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/moods")
+      .then((response) => {
+        setMoods(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  }, []);
   const returnMoodOfDate = (date) => {
     return moods.filter((mood) => mood.date === date);
   };
