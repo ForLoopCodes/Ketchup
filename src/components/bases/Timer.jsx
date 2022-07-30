@@ -5,14 +5,17 @@ export default function Timer(props) {
   const [m, setM] = React.useState(props.m);
   const [s, setS] = React.useState(props.s);
   const [started, setStarted] = React.useState(false);
+  const [startTime, setStartTime] = React.useState(null);
+  const [isFocus, setIsFocus] = React.useState(true);
   const [saveH, setSaveH] = React.useState(props.h);
   const [saveM, setSaveM] = React.useState(props.m);
   const [saveS, setSaveS] = React.useState(props.s);
+  // to be saved in backend
+  // ##############################################################
   const [history, setHistory] = React.useState([]);
-  const [startTime, setStartTime] = React.useState(null);
-  const [isFocus, setIsFocus] = React.useState(true);
   const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
   const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
+  // ##############################################################
   const startTimer = () => {
     setStarted(true);
     setStartTime(new Date());

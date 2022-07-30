@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 export default function Mood() {
+  // to be saved in backend
+  // ##############################################################
   const [moods, setMoods] = React.useState([]);
   const [dates, setDates] = React.useState(["01-01-2020", "02-01-2020"]);
+  // ##############################################################
   useEffect(() => {
     axios
       .get("http://localhost:3001/moods")

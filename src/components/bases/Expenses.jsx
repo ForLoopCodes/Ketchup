@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 const axios = require("axios");
 
 export default function Expenses() {
+  // to be saved in backend
+  // ##############################################################
   const [symbol, setSymbol] = React.useState("$");
   const [expenses, setExpenses] = React.useState([]);
   const [dates, setDates] = React.useState(["01-01-2020", "01-02-2020"]);
+  // ##############################################################
   useEffect(() => {
     axios
       .get("http://localhost:3001/expenses")

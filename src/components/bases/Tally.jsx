@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 export default function Tally() {
+  // to be saved in backend
+  // ##############################################################
   const [tallies, setTallies] = React.useState([]);
   const [categories, setCategories] = React.useState(["other", "work", "home"]);
+  // ##############################################################
   useEffect(() => {
     axios
       .get("http://localhost:3001/tallies")

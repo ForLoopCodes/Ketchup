@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 const axios = require("axios");
 
 export default function Tasks() {
+  // to be saved in backend
+  // ##############################################################
   const [tasks, setTasks] = React.useState([]);
+  // ##############################################################
   useEffect(() => {
     axios
       .get("http://localhost:3001/tasks")
