@@ -1,15 +1,15 @@
 import React from "react";
 
-export default function Timer(props) {
-  const [h, setH] = React.useState(props.h);
-  const [m, setM] = React.useState(props.m);
-  const [s, setS] = React.useState(props.s);
+export default function Timer() {
+  const [h, setH] = React.useState(0);
+  const [m, setM] = React.useState(0);
+  const [s, setS] = React.useState(0);
   const [started, setStarted] = React.useState(false);
   const [startTime, setStartTime] = React.useState(null);
   const [isFocus, setIsFocus] = React.useState(true);
-  const [saveH, setSaveH] = React.useState(props.h);
-  const [saveM, setSaveM] = React.useState(props.m);
-  const [saveS, setSaveS] = React.useState(props.s);
+  const [saveH, setSaveH] = React.useState(0);
+  const [saveM, setSaveM] = React.useState(0);
+  const [saveS, setSaveS] = React.useState(0);
   // to be saved in backend
   // ##############################################################
   const [history, setHistory] = React.useState([]);
@@ -53,11 +53,12 @@ export default function Timer(props) {
           totalTimeBreak + (new Date().getTime() - startTime.getTime()) / 60000
         );
     setHistory([
-      "timer stopped after " +
-        ((new Date() - startTime) / 60000).toFixed(0) +
-        (((new Date() - startTime) / 60000).toFixed(0) === 1
-          ? " minute."
-          : " minutes."),
+      "timer stopped. " +
+        ((isFocus ? " focused time: " : " break time: ") +
+          ((new Date() - startTime) / 60000).toFixed(0) +
+          (((new Date() - startTime) / 60000).toFixed(0) === 1
+            ? " minute."
+            : " minutes.")),
       ...history,
     ]);
   };
@@ -189,20 +190,20 @@ export default function Timer(props) {
       <button onClick={() => setTime(1, 0, 0)}>1 hr</button>
       <button onClick={() => setTime(2, 0, 0)}>2 hrs</button>
       <br />
-      <button onClick={() => setTime(h, m + 1, s)}>+1 min</button>
-      <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
-      <button onClick={() => setTime(h, m + 15, s)}>+15 min</button>
-      <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
       <button onClick={() => setTime(h + 1, m, s)}>+1 hr</button>
       <button onClick={() => setTime(h - 1, m, s)}>-1 hr</button>
+      <button onClick={() => setTime(h, m + 15, s)}>+15 min</button>
+      <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
+      <button onClick={() => setTime(h, m + 1, s)}>+1 min</button>
+      <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
       <br />
       <input
         type="number"
-        value={h}
+        placeholder={h}
         onChange={(e) =>
           e.target.value > 0
             ? e.target.value < 99
-              ? setTime(e.target.value, m, s)
+              ? setTime(parseInt(e.target.value), m, s)
               : setTime(99, m, s)
             : setTime(0, m, s)
         }
@@ -210,11 +211,11 @@ export default function Timer(props) {
       :
       <input
         type="number"
-        value={m}
+        placeholder={m}
         onChange={(e) =>
           e.target.value > 0
             ? e.target.value < 59
-              ? setTime(h, e.target.value, s)
+              ? setTime(h, parseInt(e.target.value), s)
               : setTime(h, 59, s)
             : setTime(h, 0, s)
         }
@@ -224,11 +225,11 @@ export default function Timer(props) {
       :
       <input
         type="number"
-        value={s}
+        placeholder={s}
         onChange={(e) =>
           e.target.value > 0
             ? e.target.value < 59
-              ? setTime(h, m, e.target.value)
+              ? setTime(h, m, parseInt(e.target.value))
               : setTime(h, m, 59)
             : setTime(h, m, 0)
         }

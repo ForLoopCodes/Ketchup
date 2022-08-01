@@ -5,6 +5,7 @@ export default function Tasks() {
   // to be saved in backend
   // ##############################################################
   const [tasks, setTasks] = React.useState([]);
+  const [categories, setCategories] = React.useState(["other", "work", "home"]);
   // ##############################################################
   useEffect(() => {
     axios
@@ -16,7 +17,6 @@ export default function Tasks() {
         console.log("error");
       });
   }, []);
-  const [categories, setCategories] = React.useState(["other", "work", "home"]);
   const addTask = (e) => {
     if (e.key === "Enter" && e.target.value !== "") {
       setTasks([

@@ -13,7 +13,7 @@ export default function Main() {
       <hr />
       <Expenses />
       <hr />
-      <Timer h={0} m={30} s={0} />
+      <Timer />
       <hr />
       <Tally />
       <hr />
