@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 * {
   font-family: Poppins;
-  transition: 0.3s ease;
+  transition: 0.5s ease;
 }
 html,
 body,
 .viewport {
   height: 100%;
   width: 100%;
-  margin: 0;
-  background: #eff3f7;
+  margin-top: 120px;
+  background: #f9f9fb;
   display: flex;
   justify-content: center;
 }
@@ -70,4 +70,124 @@ select:focus {
 select:hover {
   background: #fff;
   border: 1px solid #3b80f3;
+}
+.navbar {
+  background: #f9f9fb;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 130px;
+  height: calc(100% - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.navbar-item {
+  margin: 12px 0;
+  height: 20px;
+  width: 20px;
+  padding: 13.5px;
+  border-radius: 10px;
+  background: #fff;
+}
+.navbar-item:hover {
+  background: #05001b;
+}
+.navbar-item svg {
+  height: 100% !important;
+  width: 100% !important;
+}
+.navbar-item:hover svg path,
+.navbar-item:hover svg circle {
+  fill: #fff !important;
+}
+.navbar-item svg path,
+.navbar-item svg circle {
+  fill: #050017 !important;
+}
+.header {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #f9f9fb;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-body {
+  width: calc(100% - 130px - 400px - 20px);
+  height: calc(100% - 100px);
+  position: fixed;
+  top: 100px;
+  left: 130px;
+  background: #fff;
+  z-index: 1;
+  padding-left: 20px;
+  overflow: scroll;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.header-logo img {
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  z-index: 3;
+  height: 30px !important;
+  width: 30px !important;
+}
+.sidebar {
+  height: calc(100% - 100px);
+  width: 400px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  background: #f9f9fb;
+}
+.main-body div {
+  animation: fade 1s ease;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.main-look-timer {
+  font-size: 40px;
+}
+.timer-blink {
+  animation: blink 1s ease infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.alt-look-timer {
+  font-size: 20px;
+}
+.timer-details {
+  font-size: 15px;
+}
+.timer-input-invisible,
+.timer-button-invisible {
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 0;
+  opacity: 0;
+  visibility: hidden;
 }

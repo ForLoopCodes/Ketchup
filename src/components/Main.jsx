@@ -5,21 +5,31 @@ import LeaveScreen from "./bases/LeaveScreen";
 import Tally from "./bases/Tally";
 import Expenses from "./bases/Expenses";
 import Mood from "./bases/Mood";
+import NavBar from "./bases/NavBar";
+import Dashboard from "./bases/Dashboard";
 
 export default function Main() {
+  const [ActiveTab, setActiveTab] = React.useState("Timer");
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
   return (
     <div className="main">
-      <Mood />
+      <NavBar
+        handleChange={handleTabChange}
+        className="navbar"
+        activeTab={ActiveTab}
+      />
       <hr />
-      <Expenses />
-      <hr />
-      <Timer />
-      <hr />
-      <Tally />
-      <hr />
-      <Tasks />
-      <hr />
-      <LeaveScreen />
+      <div className="main-body">
+        {ActiveTab === "Dashboard" && <Dashboard />}
+        {ActiveTab === "Timer" && <Timer />}
+        {ActiveTab === "Tasks" && <Tasks />}
+        {ActiveTab === "Tally" && <Tally />}
+        {ActiveTab === "Expenses" && <Expenses />}
+        {ActiveTab === "Mood" && <Mood />}
+        {ActiveTab === "LeaveScreen" && <LeaveScreen />}
+      </div>
     </div>
   );
 }
