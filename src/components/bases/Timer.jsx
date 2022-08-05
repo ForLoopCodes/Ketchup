@@ -17,6 +17,11 @@ export default function Timer() {
   const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
   const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
   // ##############################################################
+  //<ul>
+  //  {history.map((item, index) => (
+  //    <li key={index}>{item}</li>
+  //  ))}
+  //</ul>
   const startTimer = () => {
     setStarted(true);
     setStartTime(new Date());
@@ -170,21 +175,28 @@ export default function Timer() {
     setSaveS(sec);
     setLastClick("Reset");
   };
+  const randomKaomoji = () => {
+    const kaomoji = [
+      "(っ °Д °;)っ",
+      "ヽ(´▽`)/",
+      "(▀̿Ĺ̯▀̿ ̿)",
+      "ヽ(ﾟДﾟ)ﾉ",
+      "Σ(☉ω☉ノ)/",
+      "Σ(O_O)",
+      "w(ﾟДﾟ)w",
+      "(＃°Д°)",
+      "(ʘ ͟ʖ ʘ)",
+      "༼ つ ◕_◕ ༽つ",
+      "(ﾉ◕ヮ◕)ﾉ",
+      "━Σ(ﾟДﾟ|||)━",
+      "?(⚈○ ⚈)◞",
+      "lim △t: △t → 0",
+    ];
+    kaomoji.reverse();
+    return kaomoji[Math.floor(Math.random() * kaomoji.length)];
+  };
   return (
     <div>
-      <h3>
-        <div className="timer-details">
-          # Focus {totalTimeFocused.toFixed(0)}
-          {totalTimeFocused.toFixed(0) === 1 ? " min" : " mins"} | # Break{" "}
-          {totalTimeBreak.toFixed(0)}
-          {totalTimeBreak.toFixed(0) === 1 ? " min" : " mins"}
-        </div>
-        <button onClick={() => setIsFocus(!isFocus)}>
-          {isFocus
-            ? "The coffee needs your attention. Click to switch to break mode."
-            : "The polar bear is back from his hibernation. Are you?"}
-        </button>
-      </h3>
       <h2
         className={
           lastClick === "Ended" || lastClick === "Stop"
@@ -194,9 +206,33 @@ export default function Timer() {
             : "main-look-timer"
         }
       >
-        {h.toString().padStart(2, "0")}:{m.toString().padStart(2, "0")}:
-        {s.toString().padStart(2, "0")}
+        {lastClick === "Reset"
+          ? h.toString().padStart(2, "0") === "00"
+            ? m.toString().padStart(2, "0") === "00"
+              ? s.toString().padStart(2, "0") === "00" &&
+                m.toString().padStart(2, "0") === "00" &&
+                h.toString().padStart(2, "0") === "00"
+                ? randomKaomoji()
+                : s.toString().padStart(2, "0")
+              : m.toString().padStart(2, "0") +
+                ":" +
+                s.toString().padStart(2, "0")
+            : h.toString().padStart(2, "0") +
+              ":" +
+              m.toString().padStart(2, "0")
+          : h.toString().padStart(2, "0") === "00"
+          ? m.toString().padStart(2, "0") === "00"
+            ? s.toString().padStart(2, "0") === "00" &&
+              m.toString().padStart(2, "0") === "00" &&
+              h.toString().padStart(2, "0") === "00"
+              ? "End."
+              : s.toString().padStart(2, "0")
+            : m.toString().padStart(2, "0") +
+              ":" +
+              s.toString().padStart(2, "0")
+          : h.toString().padStart(2, "0") + ":" + m.toString().padStart(2, "0")}
       </h2>
+      Controls:
       <button onClick={startTimer}>Start</button>
       <button onClick={continueTimer}>Continue</button>
       <button onClick={stopTimer}>Pause</button>
@@ -212,12 +248,18 @@ export default function Timer() {
         <button onClick={() => setTime(0, 30, 0)}>30 min</button>
         <button onClick={() => setTime(1, 0, 0)}>1 hr</button>
         <button onClick={() => setTime(2, 0, 0)}>2 hrs</button>
+      </div>
+      Set a custom time: (scroll in input for fun!)
+      <div
+        className={
+          lastClick === "Reset" || lastClick === "Ended"
+            ? "timer-button-visible"
+            : "timer-button-invisible"
+        }
+      >
         <button onClick={() => setTime(h + 1, m, s)}>+1 hr</button>
-        <button onClick={() => setTime(h - 1, m, s)}>-1 hr</button>
         <button onClick={() => setTime(h, m + 15, s)}>+15 min</button>
-        <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
         <button onClick={() => setTime(h, m + 1, s)}>+1 min</button>
-        <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
         <br />
       </div>
       <div
@@ -237,6 +279,8 @@ export default function Timer() {
                 : setTime(99, m, s)
               : setTime(0, m, s)
           }
+          min="0"
+          max="99"
         />
         :
         <input
@@ -267,12 +311,44 @@ export default function Timer() {
           max="59"
         />
       </div>
+      <div
+        className={
+          lastClick === "Reset" || lastClick === "Ended"
+            ? "timer-button-visible"
+            : "timer-button-invisible"
+        }
+      >
+        <button onClick={() => setTime(h - 1, m, s)}>-1 hr</button>
+        <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
+        <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
+        <br />
+      </div>
       <br />
-      <ul>
-        {history.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <div className="sidebar">
+        <div
+          className="timer-details sidebar-card"
+          style={{}}
+          onClick={() => setIsFocus(!isFocus)}
+        >
+          <div className="visible-sidebar-card-info">
+            Today:
+            <br /> # Focus: {totalTimeFocused.toFixed(0)}
+            {totalTimeFocused.toFixed(0) === 1 ? " min" : " mins"} <br /> #
+            Break: {totalTimeBreak.toFixed(0)}
+            {totalTimeBreak.toFixed(0) === 1 ? " min" : " mins"}
+          </div>
+          {isFocus ? (
+            <div className="invisible-sidebar-card-info">
+              The coffee needs your attention. <br />
+              Click to switch to break mode.
+            </div>
+          ) : (
+            <div className="invisible-sidebar-card-info">
+              The polar bear is back from his hibernation. Are you?
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

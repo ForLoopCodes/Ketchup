@@ -1,11 +1,26 @@
-import logo from "./resources/logo.svg";
 import React from "react";
 
 export default function NavBar(props) {
   return (
     <div>
       <div className="header-logo">
-        <img src={logo} alt="logo" />
+        <svg
+          width="128"
+          height="128"
+          x="0"
+          y="0"
+          viewBox="0 0 24 24"
+          style={{ enableBackground: "new 0 0 512 512" }}
+          className="logo"
+        >
+          <g>
+            <path
+              d="M18.314,7.548l-2.346-1.4.022-3.24A1.5,1.5,0,0,0,15.5,0h-7A1.5,1.5,0,0,0,8,2.908v3.22L5.653,7.549A5.531,5.531,0,0,0,3,12.255V18.5A5.506,5.506,0,0,0,8.5,24h7A5.506,5.506,0,0,0,21,18.5V12.274A5.526,5.526,0,0,0,18.314,7.548ZM18,18.5A2.5,2.5,0,0,1,15.5,21h-7A2.5,2.5,0,0,1,6,18.5V12.255a2.513,2.513,0,0,1,1.206-2.139l3.071-1.859A1.5,1.5,0,0,0,11,6.974V3h1.99l-.028,3.99a1.5,1.5,0,0,0,.732,1.3l3.085,1.836A2.513,2.513,0,0,1,18,12.274Zm-2-3v1A1.5,1.5,0,0,1,14.5,18h-5A1.5,1.5,0,0,1,8,16.5v-1A1.5,1.5,0,0,1,9.5,14h5A1.5,1.5,0,0,1,16,15.5Z"
+              fill="#000000"
+              data-original="#000000"
+            ></path>
+          </g>
+        </svg>
       </div>
       <div className="header">
         <h1 className="header-heading">{props.activeTab}.</h1>
@@ -31,6 +46,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Today</div>
         </span>
         <span
           className="navbar-item"
@@ -52,6 +68,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Timer</div>
         </span>
         <span
           className="navbar-item"
@@ -73,6 +90,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Todo</div>
         </span>
         <span
           className="navbar-item"
@@ -94,6 +112,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Plus-Minus</div>
         </span>
         <span
           className="navbar-item"
@@ -115,6 +134,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Expenses</div>
         </span>
         <span
           className="navbar-item"
@@ -136,6 +156,7 @@ export default function NavBar(props) {
               ></path>
             </g>
           </svg>
+          <div className="navbar-button-text">Moods</div>
         </span>
         <span
           className="navbar-item"
@@ -166,9 +187,9 @@ export default function NavBar(props) {
               </g>
             </g>
           </svg>
+          <div className="navbar-button-text">Sleep?</div>
         </span>
       </div>
-      <div className="sidebar">hi</div>
     </div>
   );
 }
