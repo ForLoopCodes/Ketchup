@@ -26,7 +26,7 @@ A web-based multifunctional application to manage your daily stress.
   - Help you set the time on the clock.
   - 30mins, 1hr, 2hr are recommendations
   - +1hr will increase time by 1 hour
-  - Similarly, -hr will decrease 1 hour
+  - Similarly, -1hr will decrease 1 hour
   - Same for all other buttons
 - The three input boxes on bottom right.
   - Used to set custom time.
