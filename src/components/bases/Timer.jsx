@@ -17,16 +17,11 @@ export default function Timer() {
   const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
   const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
   // ##############################################################
-  //<ul>
-  //  {history.map((item, index) => (
-  //    <li key={index}>{item}</li>
-  //  ))}
-  //</ul>
   const startTimer = () => {
     setStarted(true);
     setStartTime(new Date());
     setHistory([
-      "timer started: " +
+      "Started: " +
         saveH.toString().padStart(2, "0") +
         ":" +
         saveM.toString().padStart(2, "0") +
@@ -39,15 +34,7 @@ export default function Timer() {
   const continueTimer = () => {
     setStartTime(new Date());
     setStarted(true);
-    setHistory([
-      "timer continued: " +
-        h.toString().padStart(2, "0") +
-        ":" +
-        m.toString().padStart(2, "0") +
-        ":" +
-        s.toString().padStart(2, "0"),
-      ...history,
-    ]);
+    setHistory(["Resumed. ", ...history]);
     setLastClick("Continue");
   };
   const stopTimer = () => {
@@ -61,19 +48,19 @@ export default function Timer() {
           totalTimeBreak + (new Date().getTime() - startTime.getTime()) / 60000
         );
     setHistory([
-      "timer stopped. " +
-        ((isFocus ? " focused time: " : " break time: ") +
+      "Stopped. " +
+        ((isFocus ? " (Focused: " : " (Break: ") +
           ((new Date() - startTime) / 60000).toFixed(0) +
           (((new Date() - startTime) / 60000).toFixed(0) === 1
-            ? " minute."
-            : " minutes.")),
+            ? " min.)"
+            : " mins.)")),
       ...history,
     ]);
     setLastClick("Stop");
   };
   const resetTimer = () => {
     setHistory([
-      "timer reset to: " +
+      "Reset to: " +
         saveH.toString().padStart(2, "0") +
         ":" +
         saveM.toString().padStart(2, "0") +
@@ -87,47 +74,50 @@ export default function Timer() {
     setStarted(false);
     setLastClick("Reset");
   };
+
   React.useEffect(() => {
     if (started) {
       const interval = setInterval(() => {
-        if (s === 0) {
-          if (m === 0) {
-            if (h === 0) {
-              setH(0);
-              setM(0);
-              setS(0);
-              setStarted(false);
-              setHistory([
-                "timer finished: " +
-                  saveH.toString().padStart(2, "0") +
-                  ":" +
-                  saveM.toString().padStart(2, "0") +
-                  ":" +
-                  saveS.toString().padStart(2, "0"),
-                ...history,
-              ]);
-              isFocus
-                ? setTotalTimeFocused(
-                    totalTimeFocused +
-                      (new Date().getTime() - startTime.getTime()) / 60000
-                  )
-                : setTotalTimeBreak(
-                    totalTimeBreak +
-                      (new Date().getTime() - startTime.getTime()) / 60000
-                  );
-              setLastClick("Ended");
+        setTimeout(() => {
+          if (s === 0) {
+            if (m === 0) {
+              if (h === 0) {
+                setH(0);
+                setM(0);
+                setS(0);
+                setStarted(false);
+                setHistory([
+                  "Finished: " +
+                    saveH.toString().padStart(2, "0") +
+                    ":" +
+                    saveM.toString().padStart(2, "0") +
+                    ":" +
+                    saveS.toString().padStart(2, "0"),
+                  ...history,
+                ]);
+                isFocus
+                  ? setTotalTimeFocused(
+                      totalTimeFocused +
+                        (new Date().getTime() - startTime.getTime()) / 60000
+                    )
+                  : setTotalTimeBreak(
+                      totalTimeBreak +
+                        (new Date().getTime() - startTime.getTime()) / 60000
+                    );
+                setLastClick("Ended");
+              } else {
+                setH(h - 1);
+                setM(59);
+                setS(59);
+              }
             } else {
-              setH(h - 1);
-              setM(59);
+              setM(m - 1);
               setS(59);
             }
           } else {
-            setM(m - 1);
-            setS(59);
+            setS(s - 1);
           }
-        } else {
-          setS(s - 1);
-        }
+        }, 10);
       }, 1000);
       return () => clearInterval(interval);
     }
@@ -232,35 +222,117 @@ export default function Timer() {
               s.toString().padStart(2, "0")
           : h.toString().padStart(2, "0") + ":" + m.toString().padStart(2, "0")}
       </h2>
-      Controls:
-      <button onClick={startTimer}>Start</button>
-      <button onClick={continueTimer}>Continue</button>
-      <button onClick={stopTimer}>Pause</button>
-      <button onClick={resetTimer}>Reset</button>
+      <div className="timer-controls-container">
+        {(lastClick === "Reset" || lastClick === "Ended") && (
+          <div>
+            <button onClick={startTimer}>
+              <svg
+                width="128"
+                height="128"
+                x="0"
+                y="0"
+                viewBox="0 0 24 24"
+                style={{ enableBackground: "new 0 0 512 512" }}
+              >
+                <g>
+                  <path
+                    d="M20.463,7.713l-9.1-6.677A5.317,5.317,0,0,0,2.9,5.323V18.677a5.311,5.311,0,0,0,8.46,4.287l9.105-6.677a5.315,5.315,0,0,0,0-8.574Zm-1.774,6.155-9.1,6.677A2.317,2.317,0,0,1,5.9,18.677V5.323a2.276,2.276,0,0,1,1.27-2.066A2.328,2.328,0,0,1,8.223,3a2.3,2.3,0,0,1,1.362.455l9.1,6.677a2.316,2.316,0,0,1,0,3.736Z"
+                    fill="#00213a"
+                    data-original="#000000"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+          </div>
+        )}
+        {(lastClick === "Start" || lastClick === "Continue") && (
+          <div>
+            <button onClick={stopTimer}>
+              <svg
+                width="128"
+                height="128"
+                x="0"
+                y="0"
+                viewBox="0 0 24 24"
+                style={{ enableBackground: "new 0 0 512 512" }}
+              >
+                <g>
+                  <path
+                    d="M7,0A4,4,0,0,0,3,4V20a4,4,0,0,0,8,0V4A4,4,0,0,0,7,0ZM8,20a1,1,0,0,1-2,0V4A1,1,0,0,1,8,4Z"
+                    fill="#000305"
+                    data-original="#000000"
+                  ></path>
+                  <path
+                    d="M17,0a4,4,0,0,0-4,4V20a4,4,0,0,0,8,0V4A4,4,0,0,0,17,0Zm1,20a1,1,0,0,1-2,0V4a1,1,0,0,1,2,0Z"
+                    fill="#000305"
+                    data-original="#000000"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+          </div>
+        )}
+        {lastClick === "Stop" && (
+          <div>
+            <button onClick={continueTimer}>
+              <svg
+                width="128"
+                height="128"
+                x="0"
+                y="0"
+                viewBox="0 0 24 24"
+                style={{ enableBackground: "new 0 0 512 512" }}
+              >
+                <g>
+                  <path
+                    d="M20.463,7.713l-9.1-6.677A5.317,5.317,0,0,0,2.9,5.323V18.677a5.311,5.311,0,0,0,8.46,4.287l9.105-6.677a5.315,5.315,0,0,0,0-8.574Zm-1.774,6.155-9.1,6.677A2.317,2.317,0,0,1,5.9,18.677V5.323a2.276,2.276,0,0,1,1.27-2.066A2.328,2.328,0,0,1,8.223,3a2.3,2.3,0,0,1,1.362.455l9.1,6.677a2.316,2.316,0,0,1,0,3.736Z"
+                    fill="#00213a"
+                    data-original="#000000"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+            <button onClick={resetTimer}>
+              <svg
+                width="128"
+                height="128"
+                x="0"
+                y="0"
+                viewBox="0 0 24 24"
+                style={{ enableBackground: "new 0 0 512 512" }}
+              >
+                <g>
+                  <path
+                    d="M1.611,12c.759,0,1.375,.57,1.485,1.32,.641,4.339,4.389,7.68,8.903,7.68,5.476,0,9.827-4.917,8.867-10.569-.453-2.665-2.148-5.023-4.523-6.313-3.506-1.903-7.48-1.253-10.18,1.045l1.13,1.13c.63,.63,.184,1.707-.707,1.707H2c-.552,0-1-.448-1-1V2.414c0-.891,1.077-1.337,1.707-.707l1.332,1.332C7.6-.115,12.921-1.068,17.637,1.408c3.32,1.743,5.664,5.027,6.223,8.735,1.122,7.437-4.633,13.857-11.86,13.857-6.021,0-11.021-4.457-11.872-10.246-.135-.92,.553-1.754,1.483-1.754Z"
+                    fill="#00223c"
+                    data-original="#000000"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
       <br />
       <div
         className={
           lastClick === "Reset" || lastClick === "Ended"
-            ? "timer-button-visible"
-            : "timer-button-invisible"
+            ? "timer-reco-visible"
+            : "timer-reco-invisible"
         }
       >
         <button onClick={() => setTime(0, 30, 0)}>30 min</button>
         <button onClick={() => setTime(1, 0, 0)}>1 hr</button>
         <button onClick={() => setTime(2, 0, 0)}>2 hrs</button>
-      </div>
-      Set a custom time: (scroll in input for fun!)
-      <div
-        className={
-          lastClick === "Reset" || lastClick === "Ended"
-            ? "timer-button-visible"
-            : "timer-button-invisible"
-        }
-      >
+        <p>------</p>
         <button onClick={() => setTime(h + 1, m, s)}>+1 hr</button>
+        <button onClick={() => setTime(h - 1, m, s)}>-1 hr</button>
+        <p>------</p>
         <button onClick={() => setTime(h, m + 15, s)}>+15 min</button>
+        <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
+        <p>------</p>
         <button onClick={() => setTime(h, m + 1, s)}>+1 min</button>
-        <br />
+        <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
       </div>
       <div
         className={
@@ -269,59 +341,49 @@ export default function Timer() {
             : "timer-input-invisible"
         }
       >
-        <input
-          type="number"
-          placeholder={h.toString().padStart(2, "0")}
-          onChange={(e) =>
-            e.target.value > 0
-              ? e.target.value < 99
-                ? setTime(parseInt(e.target.value), m, s)
-                : setTime(99, m, s)
-              : setTime(0, m, s)
-          }
-          min="0"
-          max="99"
-        />
-        :
-        <input
-          type="number"
-          placeholder={m.toString().padStart(2, "0")}
-          onChange={(e) =>
-            e.target.value > 0
-              ? e.target.value < 59
-                ? setTime(h, parseInt(e.target.value), s)
-                : setTime(h, 59, s)
-              : setTime(h, 0, s)
-          }
-          min="0"
-          max="59"
-        />
-        :
-        <input
-          type="number"
-          placeholder={s.toString().padStart(2, "0")}
-          onChange={(e) =>
-            e.target.value > 0
-              ? e.target.value < 59
-                ? setTime(h, m, parseInt(e.target.value))
-                : setTime(h, m, 59)
-              : setTime(h, m, 0)
-          }
-          min="0"
-          max="59"
-        />
-      </div>
-      <div
-        className={
-          lastClick === "Reset" || lastClick === "Ended"
-            ? "timer-button-visible"
-            : "timer-button-invisible"
-        }
-      >
-        <button onClick={() => setTime(h - 1, m, s)}>-1 hr</button>
-        <button onClick={() => setTime(h, m - 15, s)}>-15 min</button>
-        <button onClick={() => setTime(h, m - 1, s)}>-1 min</button>
-        <br />
+        <div>
+          <input
+            type="number"
+            placeholder={h.toString().padStart(2, "0")}
+            onChange={(e) =>
+              e.target.value > 0
+                ? e.target.value < 99
+                  ? setTime(parseInt(e.target.value), m, s)
+                  : setTime(99, m, s)
+                : setTime(0, m, s)
+            }
+            min="0"
+            max="99"
+          />
+          :
+          <input
+            type="number"
+            placeholder={m.toString().padStart(2, "0")}
+            onChange={(e) =>
+              e.target.value > 0
+                ? e.target.value < 59
+                  ? setTime(h, parseInt(e.target.value), s)
+                  : setTime(h, 59, s)
+                : setTime(h, 0, s)
+            }
+            min="0"
+            max="59"
+          />
+          :
+          <input
+            type="number"
+            placeholder={s.toString().padStart(2, "0")}
+            onChange={(e) =>
+              e.target.value > 0
+                ? e.target.value < 59
+                  ? setTime(h, m, parseInt(e.target.value))
+                  : setTime(h, m, 59)
+                : setTime(h, m, 0)
+            }
+            min="0"
+            max="59"
+          />
+        </div>
       </div>
       <br />
       <div className="sidebar">
@@ -331,8 +393,7 @@ export default function Timer() {
           onClick={() => setIsFocus(!isFocus)}
         >
           <div className="visible-sidebar-card-info">
-            Today:
-            <br /> # Focus: {totalTimeFocused.toFixed(0)}
+            # Focus: {totalTimeFocused.toFixed(0)}
             {totalTimeFocused.toFixed(0) === 1 ? " min" : " mins"} <br /> #
             Break: {totalTimeBreak.toFixed(0)}
             {totalTimeBreak.toFixed(0) === 1 ? " min" : " mins"}
@@ -347,6 +408,23 @@ export default function Timer() {
               The polar bear is back from his hibernation. Are you?
             </div>
           )}
+        </div>
+        <div
+          className="timer-details sidebar-card-long"
+          style={{}}
+          onClick={() => setIsFocus(!isFocus)}
+        >
+          <div>History:</div>
+          <ul className="timer-history-timeline">
+            {history.map((item, index) => (
+              <li key={index} className="timer-history-item">
+                <nav>{item}</nav>
+              </li>
+            ))}
+            <li className="timer-history-item">
+              The lazy organism seems to have become responsible!
+            </li>
+          </ul>
         </div>
       </div>
     </div>

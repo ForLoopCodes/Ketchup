@@ -22,13 +22,27 @@ export default function Main() {
       />
       <hr />
       <div className="main-body">
-        {ActiveTab === "Dashboard" && <Dashboard />}
-        {ActiveTab === "Timer" && <Timer />}
-        {ActiveTab === "Tasks" && <Tasks />}
-        {ActiveTab === "Tally" && <Tally />}
-        {ActiveTab === "Expenses" && <Expenses />}
-        {ActiveTab === "Mood" && <Mood />}
-        {ActiveTab === "LeaveScreen" && <LeaveScreen />}
+        <div className={ActiveTab === "Dashboard" ? "hide-me" : "show-me"}>
+          <Dashboard />
+        </div>
+        <div className={ActiveTab === "Timer" ? "show-me" : "hide-me"}>
+          <Timer />
+        </div>
+        <div className={ActiveTab === "Tasks" ? "show-me" : "hide-me"}>
+          <Tasks />
+        </div>
+        <div className={ActiveTab === "Tally" ? "show-me" : "hide-me"}>
+          <Tally />
+        </div>
+        <div className={ActiveTab === "Expenses" ? "show-me" : "hide-me"}>
+          <Expenses />
+        </div>
+        <div className={ActiveTab === "Mood" ? "show-me" : "hide-me"}>
+          <Mood />
+        </div>
+        <div className={ActiveTab === "LeaveScreen" ? "show-me" : "hide-me"}>
+          <LeaveScreen />
+        </div>
       </div>
     </div>
   );

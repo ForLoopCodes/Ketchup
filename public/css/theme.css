@@ -6,6 +6,12 @@
 :root {
   --backcolor: #effdff;
 }
+.hide-me {
+  display: none;
+}
+.show-me {
+  display: block;
+}
 html,
 body,
 .viewport {
@@ -18,9 +24,10 @@ body,
   user-select: none;
 }
 button {
-  background: #dce2e8;
-  border-radius: 5px;
-  color: #848b96;
+  background: var(--backcolor);
+  border: 2.5px solid #05001b;
+  box-shadow: 5px 5px 0px 0px #05001b;
+  border-radius: 10px;
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
@@ -28,11 +35,12 @@ button {
   font-size: 12px;
   margin: 4px 2px;
   cursor: pointer;
-  border: none;
 }
 button:hover {
-  background: #3b80f3;
-  color: #fff;
+  background: #05001b;
+  box-shadow: 0 0 0 0 #05001b;
+  color: var(--backcolor);
+  transform: translate(2.5px, 2.5px);
 }
 table {
   border-collapse: collapse;
@@ -44,20 +52,21 @@ td {
   padding: 8px;
 }
 input {
-  background: #dce2e8;
-  border: 1px solid #dce2e8;
-  border-radius: 5px;
+  background: var(--backcolor);
+  border-radius: 10px;
+  border: 2.5px solid #05001b;
+  box-shadow: 5px 5px 0px 0px #05001b;
   padding: 5px 10px;
   margin: 5px;
 }
 input:focus {
-  background: #fff;
+  box-shadow: 0 0 0 0 #05001b;
+  transform: translate(2.5px, 2.5px);
   outline: none;
-  border: 1px solid #3b80f3;
 }
 input:hover {
-  background: #fff;
-  border: 1px solid #3b80f3;
+  box-shadow: 0 0 0 0 #05001b;
+  transform: translate(2.5px, 2.5px);
 }
 select {
   background: #dce2e8;
@@ -256,6 +265,10 @@ select:hover {
 }
 .main-look-timer {
   font-size: 200px;
+  text-shadow: -2.5px 2.5px 0 #000, 2.5px 2.5px 0 #000, 2.5px -2.5px 0 #000,
+    -2.5px -2.5px 0 #000, 2.5px 0 0 #000, -2.5px 0 0 #000, 0 2.5px 0 #000,
+    0 -2.5px 0 #000;
+  color: white;
   position: absolute;
   width: max-content;
   top: 50%;
@@ -263,6 +276,7 @@ select:hover {
   transform: translate(-50%, -50%);
   z-index: 1;
   margin: 0;
+  font-weight: 300;
 }
 .alt-look-timer {
   font-size: 120px;
@@ -284,14 +298,28 @@ select:hover {
 }
 .timer-input-invisible,
 .timer-button-invisible {
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 0;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
   opacity: 0;
-  visibility: hidden;
+  pointer-events: none;
+}
+.timer-input-visible {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 600;
 }
 .timer-input-visible input {
   width: 30px;
+  height: 30px;
+  width: 40px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
+  margin: 10px;
 }
 .timer-input-visible input::-webkit-outer-spin-button,
 .timer-input-visible input::-webkit-inner-spin-button {
@@ -303,6 +331,7 @@ select:hover {
   width: 310px;
   padding: 20px;
   margin-left: 20px;
+  margin-bottom: 20px;
   border-radius: 20px;
   display: flex;
   background: white;
@@ -311,7 +340,6 @@ select:hover {
   align-items: center;
   border: 2.5px solid #05001b;
   box-shadow: 5px 5px 0px 0px #05001b;
-  margin-bottom: 10px;
   font-weight: 700;
 }
 .sidebar-card:hover {
@@ -336,4 +364,145 @@ select:hover {
 }
 .visible-sidebar-card-info {
   display: block;
+}
+.sidebar-card-long {
+  height: fit-content;
+  width: 310px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2.5px solid #05001b;
+  box-shadow: 5px 5px 0px 0px #05001b;
+  font-weight: 700;
+}
+.sidebar-card-long:hover {
+  box-shadow: 0px 0px 0px 0px #05001b;
+  transform: translate(2.5px, 2.5px);
+}
+.sidebar-card-long div {
+  text-align: center;
+  width: 100%;
+}
+.sidebar-card-long ul {
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
+}
+.sidebar-card-long:hover .visible-sidebar-card-info {
+  display: none;
+}
+.sidebar-card-long:hover .invisible-sidebar-card-info {
+  display: block;
+}
+.invisible-sidebar-long-card-info {
+  display: none;
+}
+.visible-sidebar-long-card-info {
+  display: block;
+}
+.timer-controls-container {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+.timer-controls-container div {
+  width: max-content;
+}
+.timer-controls-container div button {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  background-color: var(--backcolor);
+  border: 2.5px solid #05001b;
+  box-shadow: 5px 5px 0px 0px #05001b;
+  display: flex;
+  justify-content: center;
+  transition: 0.3s ease;
+  align-items: center;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+.timer-controls-container div button:hover {
+  background-color: #05001b;
+  box-shadow: 0px 0px 0px 0px #05001b;
+  transform: translate(2.5px, 2.5px);
+}
+.timer-controls-container div button:hover * {
+  fill: var(--backcolor);
+}
+.timer-controls-container div button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+.timer-reco-visible {
+  width: 100px;
+  opacity: 1;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  text-align: center;
+}
+.timer-reco-visible * {
+  margin: 10px;
+  width: 75px;
+  font-weight: 600;
+}
+.timer-reco-invisible {
+  width: 100px;
+  opacity: 0;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  text-align: center;
+  pointer-events: none;
+}
+.timer-history-item {
+  position: relative;
+}
+.timer-history-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15.5px;
+  width: 0px;
+  height: 100%;
+  border-left: 3px solid #05001b;
+}
+@keyframes appear-in {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+.timer-history-timeline li:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15.5px;
+  width: 0px;
+  height: 100%;
+  border-left: 3px dashed #05001b;
+}
+.timer-history-timeline li:last-child::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15.5px;
+  width: 0px;
+  height: 25%;
+  border-left: 3px dashed #05001b;
+}
+.timer-history-timeline {
+  max-height: 250px;
+  overflow-y: scroll;
 }
