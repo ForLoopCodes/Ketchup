@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/ketchup/static/js/main.a98ec73b.js",
+    "index.html": "/ketchup/index.html",
+    "main.a98ec73b.js.map": "/ketchup/static/js/main.a98ec73b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a98ec73b.js"
+  ]
+}
