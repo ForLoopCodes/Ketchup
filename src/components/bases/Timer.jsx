@@ -223,7 +223,10 @@ export default function Timer() {
       <div className="timer-controls-container">
         {(lastClick === "Reset" || lastClick === "Ended") && (
           <div>
-            <button onClick={startTimer}>
+            <button
+              onClick={startTimer}
+              disabled={h === 0 && m === 0 && s === 0 && "true"}
+            >
               <svg
                 width="128"
                 height="128"
