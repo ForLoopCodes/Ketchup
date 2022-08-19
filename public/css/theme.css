@@ -122,7 +122,7 @@ select:hover {
 .navbar-item:hover {
   background: var(--darkcolor);
   transform: translate(2.5px, 2.5px);
-  box-shadow: 1px 0px 13px #0000001f, 2.5px 0px 0px 0px var(--darkcolor);
+  box-shadow: 0px 0px 0px 0px var(--darkcolor), 1px 0px 13px #0000001f;
 }
 .navbar-item svg {
   height: 100% !important;
