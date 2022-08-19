@@ -225,7 +225,7 @@ export default function Timer() {
           <div>
             <button
               onClick={startTimer}
-              disabled={h === 0 && m === 0 && s === 0 && "true"}
+              disabled={h === 0 && m === 0 && s === 0 && true}
             >
               <svg
                 width="128"
