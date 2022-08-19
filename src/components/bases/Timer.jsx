@@ -78,46 +78,44 @@ export default function Timer() {
   React.useEffect(() => {
     if (started) {
       const interval = setInterval(() => {
-        setTimeout(() => {
-          if (s === 0) {
-            if (m === 0) {
-              if (h === 0) {
-                setH(0);
-                setM(0);
-                setS(0);
-                setStarted(false);
-                setHistory([
-                  "Finished: " +
-                    saveH.toString().padStart(2, "0") +
-                    ":" +
-                    saveM.toString().padStart(2, "0") +
-                    ":" +
-                    saveS.toString().padStart(2, "0"),
-                  ...history,
-                ]);
-                isFocus
-                  ? setTotalTimeFocused(
-                      totalTimeFocused +
-                        (new Date().getTime() - startTime.getTime()) / 60000
-                    )
-                  : setTotalTimeBreak(
-                      totalTimeBreak +
-                        (new Date().getTime() - startTime.getTime()) / 60000
-                    );
-                setLastClick("Ended");
-              } else {
-                setH(h - 1);
-                setM(59);
-                setS(59);
-              }
+        if (s === 0) {
+          if (m === 0) {
+            if (h === 0) {
+              setH(0);
+              setM(0);
+              setS(0);
+              setStarted(false);
+              setHistory([
+                "Finished: " +
+                  saveH.toString().padStart(2, "0") +
+                  ":" +
+                  saveM.toString().padStart(2, "0") +
+                  ":" +
+                  saveS.toString().padStart(2, "0"),
+                ...history,
+              ]);
+              isFocus
+                ? setTotalTimeFocused(
+                    totalTimeFocused +
+                      (new Date().getTime() - startTime.getTime()) / 60000
+                  )
+                : setTotalTimeBreak(
+                    totalTimeBreak +
+                      (new Date().getTime() - startTime.getTime()) / 60000
+                  );
+              setLastClick("Ended");
             } else {
-              setM(m - 1);
+              setH(h - 1);
+              setM(59);
               setS(59);
             }
           } else {
-            setS(s - 1);
+            setM(m - 1);
+            setS(59);
           }
-        }, 10);
+        } else {
+          setS(s - 1);
+        }
       }, 1000);
       return () => clearInterval(interval);
     }

@@ -51,8 +51,11 @@ class LeaveScreen extends Component {
   render() {
     return (
       <div>
-        <h1>Live Clock.</h1>
-        {this.state.liveHours}:{this.state.liveMinutes}:{this.state.liveSeconds}
+        <div className="live-clock-face">
+          <span className="live-clock-hours">{this.state.liveHours}:</span>
+          <span className="live-clock-minutes">{this.state.liveMinutes}</span>
+          <span className="live-clock-seconds">{this.state.liveSeconds}</span>
+        </div>
         <br />
         {this.state.Day}, {this.state.Date}/{this.state.Month}/{this.state.Year}
       </div>

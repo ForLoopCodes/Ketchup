@@ -472,7 +472,7 @@ select:hover {
   left: -15.5px;
   width: 0px;
   height: 100%;
-  border-left: 3px solid #05001b;
+  border-left: 3px solid rgba(5, 0, 27, 0.3);
 }
 @keyframes appear-in {
   0% {
@@ -491,7 +491,7 @@ select:hover {
   left: -15.5px;
   width: 0px;
   height: 100%;
-  border-left: 3px dashed #05001b;
+  border-left: 3px dotted rgba(5, 0, 27, 0.3);
 }
 .timer-history-timeline li:last-child::after {
   content: "";
@@ -500,9 +500,27 @@ select:hover {
   left: -15.5px;
   width: 0px;
   height: 25%;
-  border-left: 3px dashed #05001b;
+  border-left: 3px dashed rgba(5, 0, 27, 0.3);
 }
 .timer-history-timeline {
   max-height: 250px;
   overflow-y: scroll;
+}
+.live-clock-face {
+  font-size: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.live-clock-hours {
+  font-weight: 300;
+  opacity: 0.5;
+}
+.live-clock-minutes {
+  font-weight: 600;
+  font-size: 160px !important;
+}
+.live-clock-seconds {
+  font-size: 40px;
 }
