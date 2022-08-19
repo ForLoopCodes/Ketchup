@@ -178,7 +178,7 @@ export default function Timer() {
       "(ﾉ◕ヮ◕)ﾉ",
       "━Σ(ﾟДﾟ|||)━",
       "?(⚈○ ⚈)◞",
-      "lim △t: △t → 0",
+      "lim △t → 0",
     ];
     kaomoji.reverse();
     return kaomoji[Math.floor(Math.random() * kaomoji.length)];
@@ -410,11 +410,7 @@ export default function Timer() {
             </div>
           )}
         </div>
-        <div
-          className="timer-details sidebar-card-long"
-          style={{}}
-          onClick={() => setIsFocus(!isFocus)}
-        >
+        <div className="timer-details sidebar-card-long" style={{}}>
           <div>History:</div>
           <ul className="timer-history-timeline">
             {history.map((item, index) => (
