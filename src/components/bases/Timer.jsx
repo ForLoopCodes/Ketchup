@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 export default function Timer() {
   const [h, setH] = React.useState(0);
@@ -16,28 +16,77 @@ export default function Timer() {
   const [history, setHistory] = React.useState([]);
   const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
   const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
+  const [lastHistory, setLastHistory] = React.useState([
+    {
+      date: new Date(12, 30, 2006),
+      focus: 0,
+      break: 0,
+      history: ["hi", "hlo"],
+    },
+  ]);
   // ##############################################################
+  // bug remove code
+  const Ref = useRef(null);
   const startTimer = () => {
+    Ref.current = setInterval(() => {
+      console.log("timer is working (this is to ensure it works smoothly)");
+    }, 100);
     setStarted(true);
     setStartTime(new Date());
-    setHistory([
-      "Started: " +
-        saveH.toString().padStart(2, "0") +
-        ":" +
-        saveM.toString().padStart(2, "0") +
-        ":" +
-        saveS.toString().padStart(2, "0"),
-      ...history,
-    ]);
+    lastHistory[0].date.getDate() === new Date().getDate()
+      ? (lastHistory[0].history = [
+          "(" +
+            new Date().getHours().toString().padStart(2, "0") +
+            ":" +
+            new Date().getMinutes().toString().padStart(2, "0") +
+            ") Started: " +
+            saveH.toString().padStart(2, "0") +
+            ":" +
+            saveM.toString().padStart(2, "0") +
+            ":" +
+            saveS.toString().padStart(2, "0"),
+          ...lastHistory[0].history,
+        ])
+      : setLastHistory([
+          {
+            date: new Date(),
+            focus: 0,
+            break: 0,
+            history: [
+              "(" +
+                new Date().getHours().toString().padStart(2, "0") +
+                ":" +
+                new Date().getMinutes().toString().padStart(2, "0") +
+                ") Started: " +
+                saveH.toString().padStart(2, "0") +
+                ":" +
+                saveM.toString().padStart(2, "0") +
+                ":" +
+                saveS.toString().padStart(2, "0"),
+            ],
+          },
+          ...lastHistory,
+        ]);
     setLastClick("Start");
   };
   const continueTimer = () => {
+    Ref.current = setInterval(() => {
+      console.log("timer is working (this is to ensure it works smoothly)");
+    }, 100);
     setStartTime(new Date());
     setStarted(true);
-    setHistory(["Resumed. ", ...history]);
+    lastHistory[0].history = [
+      "(" +
+        new Date().getHours().toString().padStart(2, "0") +
+        ":" +
+        new Date().getMinutes().toString().padStart(2, "0") +
+        ") Resumed. ",
+      ...lastHistory[0].history,
+    ];
     setLastClick("Continue");
   };
   const stopTimer = () => {
+    clearInterval(Ref.current);
     setStarted(false);
     isFocus
       ? setTotalTimeFocused(
@@ -47,34 +96,41 @@ export default function Timer() {
       : setTotalTimeBreak(
           totalTimeBreak + (new Date().getTime() - startTime.getTime()) / 60000
         );
-    setHistory([
-      "Stopped. " +
+    lastHistory[0].history = [
+      "(" +
+        new Date().getHours().toString().padStart(2, "0") +
+        ":" +
+        new Date().getMinutes().toString().padStart(2, "0") +
+        ") Stopped. " +
         ((isFocus ? " (Focused: " : " (Break: ") +
           ((new Date() - startTime) / 60000).toFixed(0) +
           (((new Date() - startTime) / 60000).toFixed(0) === 1
             ? " min.)"
             : " mins.)")),
-      ...history,
-    ]);
+      ...lastHistory[0].history,
+    ];
     setLastClick("Stop");
   };
   const resetTimer = () => {
-    setHistory([
-      "Reset to: " +
+    lastHistory[0].history = [
+      "(" +
+        new Date().getHours().toString().padStart(2, "0") +
+        ":" +
+        new Date().getMinutes().toString().padStart(2, "0") +
+        ") Reset to: " +
         saveH.toString().padStart(2, "0") +
         ":" +
         saveM.toString().padStart(2, "0") +
         ":" +
         saveS.toString().padStart(2, "0"),
-      ...history,
-    ]);
+      ...lastHistory[0].history,
+    ];
     setH(saveH);
     setM(saveM);
     setS(saveS);
     setStarted(false);
     setLastClick("Reset");
   };
-
   React.useEffect(() => {
     if (started) {
       const interval = setInterval(() => {
@@ -193,6 +249,7 @@ export default function Timer() {
             ? "alt-look-timer"
             : "main-look-timer"
         }
+        ref={Ref}
       >
         {lastClick === "Reset"
           ? h.toString().padStart(2, "0") === "00"
@@ -411,17 +468,76 @@ export default function Timer() {
           )}
         </div>
         <div className="timer-details sidebar-card-long" style={{}}>
-          <div>History:</div>
-          <ul className="timer-history-timeline">
-            {history.map((item, index) => (
-              <li key={index} className="timer-history-item">
-                <nav>{item}</nav>
+          <div>
+            <div>
+              History |
+              {lastHistory[0].date.getDate() +
+                "-" +
+                (lastHistory[0].date.getMonth() + 1) +
+                "-" +
+                lastHistory[0].date.getFullYear() ===
+              new Date().getDate() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getFullYear()
+                ? " Today"
+                : " " +
+                  lastHistory[0].date.getDate().toString().padStart(2, "0") +
+                  "-" +
+                  (lastHistory[0].date.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0") +
+                  "-" +
+                  lastHistory[0].date.getFullYear().toString().padStart(4, "0")}
+            </div>
+            <ul className="timer-history-timeline">
+              {lastHistory[0].history.map((item, index) => (
+                <li key={index} className="timer-history-item">
+                  <nav>{item}</nav>
+                </li>
+              ))}
+              <li className="timer-history-item">
+                The lazy organism seems to have become responsible!
               </li>
-            ))}
-            <li className="timer-history-item">
-              The lazy organism seems to have become responsible!
-            </li>
-          </ul>
+            </ul>
+          </div>
+        </div>
+        <div className="timer-details sidebar-card-long" style={{}}>
+          <div>
+            <div>
+              History - Focus |
+              {lastHistory[0].date.getDate() +
+                "-" +
+                (lastHistory[0].date.getMonth() + 1) +
+                "-" +
+                lastHistory[0].date.getFullYear() ===
+              new Date().getDate() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getFullYear()
+                ? " Today"
+                : " " +
+                  lastHistory[0].date.getDate().toString().padStart(2, "0") +
+                  "-" +
+                  (lastHistory[0].date.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0") +
+                  "-" +
+                  lastHistory[0].date.getFullYear().toString().padStart(4, "0")}
+            </div>
+            <ul className="timer-history-timeline">
+              {lastHistory[0].history.map((item, index) => (
+                <li key={index} className="timer-history-item">
+                  <nav>{item}</nav>
+                </li>
+              ))}
+              <li className="timer-history-item">
+                The lazy organism seems to have become responsible!
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -4,9 +4,10 @@
   transition: 0.5s ease;
 }
 :root {
-  --backcolor: #ffefef;
+  --lightcolor: #ffefef;
+  --lightcolortrns: #fff;
   --darkcolor: #001f3f;
-  --darkcolortrns: rgba(0, 37, 75, 0.363);
+  --darkcolortrns: #001f3f55;
 }
 .hide-me {
   display: none;
@@ -20,14 +21,14 @@ body,
   height: 100%;
   width: 100%;
   margin: 0;
-  background: var(--backcolor);
+  background: var(--lightcolor);
   display: flex;
   justify-content: center;
   color: var(--darkcolor);
   user-select: none;
 }
 button {
-  background: var(--backcolor);
+  background: var(--lightcolor);
   border: 2.5px solid var(--darkcolor);
   box-shadow: 5px 5px 0px 0px var(--darkcolor);
   border-radius: 10px;
@@ -43,7 +44,7 @@ button {
 button:hover {
   background: var(--darkcolor);
   box-shadow: 0 0 0 0 var(--darkcolor);
-  color: var(--backcolor);
+  color: var(--lightcolor);
   transform: translate(2.5px, 2.5px);
 }
 table {
@@ -56,7 +57,7 @@ td {
   padding: 8px;
 }
 input {
-  background: var(--backcolor);
+  background: var(--lightcolor);
   color: var(--darkcolor);
   border-radius: 10px;
   border: 2.5px solid var(--darkcolor);
@@ -77,23 +78,23 @@ input:hover {
   transform: translate(2.5px, 2.5px);
 }
 select {
-  background: #dce2e8;
-  border: 1px solid #dce2e8;
+  background: var(--lightcolortrns);
+  border: 1px solid var(--lightcolortrns);
   border-radius: 5px;
   padding: 5px 10px;
   margin: 5px;
 }
 select:focus {
-  background: #fff;
+  background: var(--lightcolortrns);
   outline: none;
   border: 1px solid #3b80f3;
 }
 select:hover {
-  background: #fff;
+  background: var(--lightcolortrns);
   border: 1px solid #3b80f3;
 }
 .navbar {
-  background: var(--backcolor);
+  background: var(--lightcolor);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -113,7 +114,7 @@ select:hover {
   width: 20px;
   padding: 13.5px;
   border-radius: 10px;
-  background: #fff;
+  background: var(--lightcolortrns);
   border: 2.5px solid var(--darkcolor);
   box-shadow: 5px 5px 0px 0px var(--darkcolor);
   display: flex;
@@ -131,7 +132,7 @@ select:hover {
 }
 .navbar-item:hover svg path,
 .navbar-item:hover svg circle {
-  fill: #fff !important;
+  fill: var(--lightcolortrns) !important;
 }
 .navbar-item svg path,
 .navbar-item svg circle {
@@ -150,7 +151,7 @@ select:hover {
   border: 0px solid var(--darkcolor);
   border-width: 2.5px 0px 0px 2.5px;
   pointer-events: none;
-  box-shadow: -10px -10px 0 10px var(--backcolor);
+  box-shadow: -10px -10px 0 10px var(--lightcolor);
 }
 .navbar:hover {
   width: 300px;
@@ -163,7 +164,7 @@ select:hover {
   transition: all 0.5s ease 0s, width ease 0.5s 1s;
 }
 .navbar-item:hover .navbar-button-text {
-  color: #fff;
+  color: var(--lightcolortrns);
 }
 .navbar-button-text {
   opacity: 0;
@@ -189,7 +190,7 @@ select:hover {
   position: fixed;
   top: 0;
   left: 130px;
-  background: var(--backcolor);
+  background: var(--lightcolor);
   z-index: 3;
   display: flex;
   justify-content: center;
@@ -202,7 +203,7 @@ select:hover {
   left: -130px;
   width: 130px;
   height: 100px;
-  background: var(--backcolor);
+  background: var(--lightcolor);
   z-index: 3;
 }
 .header::before {
@@ -212,7 +213,7 @@ select:hover {
   right: -400px;
   width: 400px;
   height: 100px;
-  background: var(--backcolor);
+  background: var(--lightcolor);
   z-index: 3;
 }
 .main-body {
@@ -221,7 +222,7 @@ select:hover {
   position: fixed;
   top: 100px;
   left: 130px;
-  background: #fff;
+  background: var(--lightcolortrns);
   z-index: 1;
   border: 2.5px solid var(--darkcolor);
   padding-left: 20px;
@@ -244,7 +245,7 @@ select:hover {
   bottom: 0;
   right: 0;
   z-index: 2;
-  background: var(--backcolor);
+  background: var(--lightcolor);
 }
 .main-body div {
   animation: fade 1s ease;
@@ -277,7 +278,7 @@ select:hover {
     2.5px -2.5px 0 var(--darkcolor), -2.5px -2.5px 0 var(--darkcolor),
     2.5px 0 0 var(--darkcolor), -2.5px 0 0 var(--darkcolor),
     0 2.5px 0 var(--darkcolor), 0 -2.5px 0 var(--darkcolor);
-  color: white;
+  color: var(--lightcolortrns);
   position: absolute;
   width: max-content;
   top: 50%;
@@ -344,7 +345,7 @@ select:hover {
   margin-bottom: 20px;
   border-radius: 20px;
   display: flex;
-  background: white;
+  background: var(--lightcolortrns);
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -362,7 +363,7 @@ select:hover {
   text-align: center;
 }
 .sidebar-card:hover * {
-  color: white;
+  color: var(--lightcolortrns);
 }
 .sidebar-card:hover .visible-sidebar-card-info {
   display: none;
@@ -385,7 +386,7 @@ select:hover {
   border-radius: 20px;
   display: flex;
   color: var(--darkcolor);
-  background: white;
+  background: var(--lightcolortrns);
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -400,11 +401,13 @@ select:hover {
 .sidebar-card-long div {
   text-align: center;
   width: 100%;
+  padding-left: 0;
 }
-.sidebar-card-long ul {
+.sidebar-card-long div ul {
   width: 100%;
   margin: 0;
   margin-top: 10px;
+  text-align: left;
 }
 .sidebar-card-long:hover .visible-sidebar-card-info {
   display: none;
@@ -430,7 +433,7 @@ select:hover {
   height: 50px;
   width: 50px;
   border-radius: 10px;
-  background-color: var(--backcolor);
+  background-color: var(--lightcolor);
   border: 2.5px solid var(--darkcolor);
   box-shadow: 5px 5px 0px 0px var(--darkcolor);
   display: flex;
@@ -449,7 +452,7 @@ select:hover {
   fill: var(--darkcolor) !important;
 }
 .timer-controls-container div button:hover svg path {
-  fill: var(--backcolor) !important;
+  fill: var(--lightcolor) !important;
 }
 .timer-controls-container div button svg {
   width: 20px !important;
