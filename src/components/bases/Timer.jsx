@@ -25,7 +25,6 @@ export default function Timer() {
     },
   ]);
   // ##############################################################
-  // bug remove code
   const Ref = useRef(null);
   const startTimer = () => {
     Ref.current = setInterval(() => {
@@ -141,15 +140,19 @@ export default function Timer() {
               setM(0);
               setS(0);
               setStarted(false);
-              setHistory([
-                "Finished: " +
+              lastHistory[0].history = [
+                "(" +
+                  new Date().getHours().toString().padStart(2, "0") +
+                  ":" +
+                  new Date().getMinutes().toString().padStart(2, "0") +
+                  ") Finished: " +
                   saveH.toString().padStart(2, "0") +
                   ":" +
                   saveM.toString().padStart(2, "0") +
                   ":" +
                   saveS.toString().padStart(2, "0"),
-                ...history,
-              ]);
+                ...lastHistory[0].history,
+              ];
               isFocus
                 ? setTotalTimeFocused(
                     totalTimeFocused +
