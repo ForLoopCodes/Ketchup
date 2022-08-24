@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 export default function Timer() {
-  const [h, setH] = React.useState(0);
+  const [h, setH] = React.useState(1);
   const [m, setM] = React.useState(0);
   const [s, setS] = React.useState(0);
   const [started, setStarted] = React.useState(false);
