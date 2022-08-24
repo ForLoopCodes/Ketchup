@@ -9,7 +9,7 @@ import NavBar from "./bases/NavBar";
 import Dashboard from "./bases/Dashboard";
 
 export default function Main() {
-  const [ActiveTab, setActiveTab] = React.useState("Timer");
+  const [ActiveTab, setActiveTab] = React.useState("Tasks");
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };

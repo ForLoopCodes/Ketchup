@@ -505,37 +505,35 @@ export default function Timer() {
         </div>
         <div className="timer-details sidebar-card-long" style={{}}>
           <div>
-            <div>
-              History - Focus |
-              {lastHistory[0].date.getDate() +
-                "-" +
-                (lastHistory[0].date.getMonth() + 1) +
-                "-" +
-                lastHistory[0].date.getFullYear() ===
-              new Date().getDate() +
-                "-" +
-                (new Date().getMonth() + 1) +
-                "-" +
-                new Date().getFullYear()
-                ? " Today"
-                : " " +
-                  lastHistory[0].date.getDate().toString().padStart(2, "0") +
-                  "-" +
-                  (lastHistory[0].date.getMonth() + 1)
-                    .toString()
-                    .padStart(2, "0") +
-                  "-" +
-                  lastHistory[0].date.getFullYear().toString().padStart(4, "0")}
-            </div>
+            <div>Focussed time:</div>
             <ul className="timer-history-timeline">
-              {lastHistory[0].history.map((item, index) => (
+              {lastHistory.map((item, index) => (
                 <li key={index} className="timer-history-item">
-                  <nav>{item}</nav>
+                  <nav>
+                    {item.date.getDate() +
+                      "-" +
+                      (item.date.getMonth() + 1) +
+                      "-" +
+                      item.date.getFullYear() ===
+                    new Date().getDate() +
+                      "-" +
+                      (new Date().getMonth() + 1) +
+                      "-" +
+                      new Date().getFullYear()
+                      ? " Today"
+                      : " " +
+                        item.date.getDate().toString().padStart(2, "0") +
+                        "-" +
+                        (item.date.getMonth() + 1).toString().padStart(2, "0") +
+                        "-" +
+                        item.date
+                          .getFullYear()
+                          .toString()
+                          .padStart(4, "0")}{" "}
+                    | focus {item.focus}m, break {item.break}m
+                  </nav>
                 </li>
               ))}
-              <li className="timer-history-item">
-                The lazy organism seems to have become responsible!
-              </li>
             </ul>
           </div>
         </div>

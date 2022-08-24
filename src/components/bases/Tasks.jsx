@@ -314,6 +314,19 @@ export default function Tasks() {
           onKeyDown={addCategory}
         />
       </h3>
+      <div className="sidebar">
+        <h2>Categories.</h2>
+        <div className="sidebar-card-short">
+          <h3>All</h3>
+        </div>
+        {categories.map((category) => (
+          <div key={category} className="sidebar-card-short">
+            <h3>
+              # {categories.indexOf(category) + 1} | {category}
+            </h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -406,6 +406,7 @@ select:hover {
 .sidebar-card-long div ul {
   width: 100%;
   margin: 0;
+  margin-left: -10px;
   margin-top: 10px;
   text-align: left;
 }
@@ -541,4 +542,47 @@ select:hover {
 }
 .live-clock-seconds {
   font-size: 40px;
+}
+.sidebar h2 {
+  width: 100%;
+  text-align: center;
+}
+.sidebar-card-short {
+  height: fit-content;
+  width: 310px;
+  padding: 0 20px 0 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  display: flex;
+  color: var(--darkcolor);
+  background: var(--lightcolortrns);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2.5px solid var(--darkcolor);
+  box-shadow: 5px 5px 0px 0px var(--darkcolor);
+  font-weight: 700;
+}
+.sidebar-card-short:hover {
+  box-shadow: 0px 0px 0px 0px var(--darkcolor);
+  transform: translate(2.5px, 2.5px);
+}
+.sidebar-card-short div {
+  text-align: center;
+  width: 100%;
+  padding-left: 0;
+}
+.sidebar-card-short div ul {
+  width: 100%;
+  margin: 0;
+  margin-left: -10px;
+  margin-top: 10px;
+  text-align: left;
+}
+.sidebar-card-short:hover .visible-sidebar-card-info {
+  display: none;
+}
+.sidebar-card-short:hover .invisible-sidebar-card-info {
+  display: block;
 }
