@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 export default function Timer() {
   const [h, setH] = React.useState(1);
@@ -12,24 +12,18 @@ export default function Timer() {
   const [saveS, setSaveS] = React.useState(0);
   const [lastClick, setLastClick] = React.useState("Reset");
   // to be saved in backend
-  // ##############################################################
-  const [history, setHistory] = React.useState([]);
   const [totalTimeFocused, setTotalTimeFocused] = React.useState(0);
   const [totalTimeBreak, setTotalTimeBreak] = React.useState(0);
   const [lastHistory, setLastHistory] = React.useState([
     {
-      date: new Date(12, 30, 2006),
+      date: new Date(),
       focus: 0,
       break: 0,
-      history: ["hi", "hlo"],
+      history: [],
     },
   ]);
-  // ##############################################################
-  const Ref = useRef(null);
+  // -
   const startTimer = () => {
-    Ref.current = setInterval(() => {
-      console.log("timer is working (this is to ensure it works smoothly)");
-    }, 100);
     setStarted(true);
     setStartTime(new Date());
     lastHistory[0].date.getDate() === new Date().getDate()
@@ -69,9 +63,6 @@ export default function Timer() {
     setLastClick("Start");
   };
   const continueTimer = () => {
-    Ref.current = setInterval(() => {
-      console.log("timer is working (this is to ensure it works smoothly)");
-    }, 100);
     setStartTime(new Date());
     setStarted(true);
     lastHistory[0].history = [
@@ -85,7 +76,6 @@ export default function Timer() {
     setLastClick("Continue");
   };
   const stopTimer = () => {
-    clearInterval(Ref.current);
     setStarted(false);
     isFocus
       ? setTotalTimeFocused(
@@ -188,7 +178,7 @@ export default function Timer() {
     saveS,
     isFocus,
     startTime,
-    history,
+    lastHistory,
     totalTimeBreak,
     totalTimeFocused,
   ]);
@@ -252,7 +242,6 @@ export default function Timer() {
             ? "alt-look-timer"
             : "main-look-timer"
         }
-        ref={Ref}
       >
         {lastClick === "Reset"
           ? h.toString().padStart(2, "0") === "00"
