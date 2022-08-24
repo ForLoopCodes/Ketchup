@@ -439,7 +439,6 @@ export default function Timer() {
       <div className="sidebar">
         <div
           className="timer-details sidebar-card"
-          style={{}}
           onClick={() => setIsFocus(!isFocus)}
         >
           <div className="visible-sidebar-card-info">
@@ -459,7 +458,7 @@ export default function Timer() {
             </div>
           )}
         </div>
-        <div className="timer-details sidebar-card-long" style={{}}>
+        <div className="timer-details sidebar-card-long">
           <div>
             <div>
               History |
@@ -495,7 +494,7 @@ export default function Timer() {
             </ul>
           </div>
         </div>
-        <div className="timer-details sidebar-card-long" style={{}}>
+        <div className="timer-details sidebar-card-long">
           <div>
             <div>Focussed time:</div>
             <ul className="timer-history-timeline">
